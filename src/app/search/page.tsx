@@ -1,9 +1,9 @@
-import SearchBar from "./components/SearchBar"
+import SearchBar from './components/SearchBar'
 
 export default async function Search() {
   return (
     <div>
-      <SearchBar/>
+      <SearchBar />
     </div>
   )
 }
