@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
+import { isLoggedIn } from "@/lib/auth"
 
-// temp function for auth
-const isLoggedIn = () => false
 
-export default function Home() {
-  if (isLoggedIn()) {
+
+export default async function Home() {
+  const isUser = await isLoggedIn()
+  if (isUser) {
     redirect("/search")
   } else {
     redirect("/login")

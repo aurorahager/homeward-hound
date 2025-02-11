@@ -1,1 +1,0 @@
-// POST to search locations
