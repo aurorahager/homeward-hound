@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -14,6 +16,7 @@
     "@fontsource/roboto": "^5.1.1",
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
+    "axios": "^1.7.9",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -21,14 +24,24 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/eslint-plugin-next": "^14.2.24",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9.20.0",
-    "eslint-config-next": "15.1.6",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "^15.1.7",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-config-turbo": "^2.4.1",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "prettier": "^3.5.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "undefined": "^0.1.0"
   }
 }

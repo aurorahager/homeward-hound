@@ -1,15 +1,20 @@
 'use client'
+
 import useSWR from 'swr'
 
-import { API_BASE_URL } from '@/utils/constants'
+import { api } from '@/lib/api'
 
-const fetcher = (url: string) =>
-  fetch(url, { credentials: 'include' }).then((res) => res.json())
+type ErrorResponse = {
+  message: string
+  statusCode: number
+}
+
+const fetcher = (url: string, data?: object) => api.get(url, data)
 
 export function useDogBreeds() {
-  const { data, error, isLoading } = useSWR(
-    `${API_BASE_URL}/dogs/breeds`,
-    fetcher
+  const { data, error, isLoading } = useSWR<string[], ErrorResponse>(
+    `/dogs/breeds`,
+    fetcher,
   )
 
   return {
@@ -19,12 +24,19 @@ export function useDogBreeds() {
   }
 }
 
-// export async function addFavoriteDog(dogId: string) {
-//   const res = await fetch('/api/dogs/favorites', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     credentials: 'include',
-//     body: JSON.stringify({ dogId }),
-//   });
-//   return res.json();
-// }
+// TODO: add dog search
+
+export function useDogSearch(params?: object) {
+  const { data, error, isLoading } = useSWR<string[], ErrorResponse>(
+    ['/dogs/search', params],
+    ([url, queryParams]: [string, object?]) => fetcher(url, queryParams),
+  )
+
+  return {
+    dogIds: data,
+    isLoading,
+    isError: error,
+  }
+}
+// TODO: add dog details
+// TODO: add dog match

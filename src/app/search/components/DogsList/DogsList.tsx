@@ -1,8 +1,9 @@
 'use client'
-import { useDogBreeds } from '@/services/dogsService'
+
+import { useDogSearch } from '@/services/dogsService'
 
 export default function DogsList() {
-  const { breeds } = useDogBreeds()
-  console.log('breeds', breeds)
+  const { dogIds } = useDogSearch()
+  console.log('DOGGS', dogIds)
   return <div>hi</div>
 }

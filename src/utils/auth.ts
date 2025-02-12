@@ -1,5 +1,5 @@
-// check if auth
 'use server'
+
 import { cookies } from 'next/headers'
 
 export const isLoggedIn = async () => {
