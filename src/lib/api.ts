@@ -15,6 +15,7 @@ export const api = Axios.create({
 })
 
 const requestInterceptor = (config: RequestConfig): RequestConfig => {
+  console.log('PLEASEEEE', config)
   const { headers } = config
   if (headers) {
     headers.Accept = 'application/json'
@@ -28,21 +29,21 @@ const requestInterceptor = (config: RequestConfig): RequestConfig => {
 }
 
 const requestErrorInterceptor = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${JSON.stringify(error)}]`)
+  console.error(`[request error] [${error.message} - ${error.status}]`)
   return Promise.reject(error)
 }
 
 const responseInterceptor = (
   response: ApiResponse<Dog[] | SearchedDogs | string[]>,
 ): ApiResponse<Dog[] | SearchedDogs | string[]> => {
-  console.info(`[response] [${JSON.stringify(response)}]`)
+  console.info(`[response] [${JSON.stringify(response.data)}]`)
   return response.data
 }
 
 const responseErrorInterceptor = (
   error: ResponseAxiosError,
 ): Promise<ResponseAxiosError> => {
-  console.error(`[response error] [${JSON.stringify(error)}]`)
+  console.error(`[response error] [${error.message} - ${error.status}]`)
   // const message = error.response?.data?.message || error.message
   // TODO: show error notification
   if (error.response?.status === 401) {
