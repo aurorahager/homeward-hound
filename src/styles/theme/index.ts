@@ -1,0 +1,200 @@
+import { createTheme } from '@mui/material/styles'
+import { PaletteOptions } from '@mui/material/styles/createPalette'
+
+const palette: PaletteOptions = {
+  primary: {
+    light: '#9fd1c8',
+    main: '#3e6f6d',
+    dark: '#0d302e',
+    contrastText: '#f8f1ae',
+  },
+  secondary: {
+    light: '#d9b592',
+    main: '#f3923b',
+    dark: '#c76e0f',
+    contrastText: '#e5e7c6',
+  },
+  background: {
+    default: '#e8dba5',
+    paper: '#ebdfae',
+  },
+  text: {
+    primary: '#24322e',
+    secondary: '#51635a',
+  },
+}
+
+const theme = createTheme({
+  palette,
+  typography: {
+    fontFamily: `'Roboto', sans-serif`,
+    button: {
+      textTransform: 'none',
+      fontWeight: 600,
+    },
+    h1: {
+      fontSize: '2.5rem',
+      fontWeight: 700,
+    },
+    h2: {
+      fontSize: '2rem',
+      fontWeight: 600,
+    },
+    body1: {
+      fontSize: '1rem',
+    },
+  },
+  shape: {
+    borderRadius: 4,
+  },
+  // components: {
+  //   MuiButton: {
+  //     styleOverrides: {
+  //       root: {
+  //         borderRadius: 4,
+  //         textTransform: 'none',
+  //         boxShadow: 'none',
+  //         '&:hover': {
+  //           boxShadow: 'none',
+  //         },
+  //       },
+  //       outlined: {
+  //         border: '2px solid #AEC6CF',
+  //         color: '#2C2C2C',
+  //         backgroundColor: 'transparent',
+  //         '&:hover': {
+  //           backgroundColor: '#F0F8FF',
+  //         },
+  //       },
+  //     },
+  //   },
+  //   MuiTextField: {
+  //     styleOverrides: {
+  //       root: {
+  //         '& .MuiOutlinedInput-root': {
+  //           borderRadius: 2,
+  //           '& fieldset': {
+  //             borderColor: '#AEC6CF',
+  //           },
+  //           '&:hover fieldset': {
+  //             borderColor: '#85A9B4',
+  //           },
+  //           '&.Mui-focused fieldset': {
+  //             borderColor: '#85A9B4',
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   MuiIconButton: {
+  //     styleOverrides: {
+  //       root: {
+  //         color: '#2C2C2C',
+  //         borderRadius: 2,
+  //         '&:hover': {
+  //           backgroundColor: '#F0F8FF',
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
+  components: {
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          strokeWidth: '1',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            // backgroundColor: '#8fbfb7',
+            '& fieldset': {
+              // borderColor: '#b3d1df',
+            },
+            '&:hover fieldset': {
+              // borderColor: '#f6c28b',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#7ba2b6',
+            },
+          },
+          '& .MuiInputBase-input': {
+            color: '#4e4e4e',
+          },
+          // '& .MuiInputBase-input::placeholder': {
+          //   color: '#9a9a9a', // Subtle placeholder
+          //   opacity: 1,
+          // },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+          textTransform: 'none',
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              // borderColor: '#b3d1df',
+            },
+            '&:hover fieldset': {
+              // borderColor: '#f6c28b',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#7ba2b6',
+            },
+          },
+          '& .MuiInputBase-input': {
+            color: '#4e4e4e',
+          },
+        },
+        popper: {
+          '& .MuiPaper-root': {
+            backgroundColor: '#eaeccf',
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          // backgroundColor: '#8fbfb7',
+          borderColor: '#f3923b',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#f3923b',
+            },
+            '&:hover fieldset': {
+              borderColor: '#f3923b',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#f3923b',
+            },
+          },
+          '& .MuiInputBase-input': {
+            color: '#4e4e4e',
+          },
+        },
+
+        menu: {
+          backgroundColor: '#eaeccf',
+        },
+      },
+    },
+  },
+})
+
+export default theme

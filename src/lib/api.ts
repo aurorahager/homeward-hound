@@ -1,5 +1,7 @@
 import Axios, { AxiosError } from 'axios'
 
+import Router from 'next/router'
+
 import {
   ApiResponse,
   Dog,
@@ -15,7 +17,6 @@ export const api = Axios.create({
 })
 
 const requestInterceptor = (config: RequestConfig): RequestConfig => {
-  console.log('PLEASEEEE', config)
   const { headers } = config
   if (headers) {
     headers.Accept = 'application/json'
@@ -44,10 +45,9 @@ const responseErrorInterceptor = (
   error: ResponseAxiosError,
 ): Promise<ResponseAxiosError> => {
   console.error(`[response error] [${error.message} - ${error.status}]`)
-  // const message = error.response?.data?.message || error.message
   // TODO: show error notification
   if (error.response?.status === 401) {
-    // TODO: redirect to login page
+    Router.push('/login')
   }
 
   return Promise.reject(error)

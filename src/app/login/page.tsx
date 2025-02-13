@@ -1,9 +1,5 @@
 import LogInForm from './components/LogInForm'
 
-export default function Login() {
-  return (
-    <div>
-      <LogInForm />
-    </div>
-  )
+export default function Login(): JSX.Element {
+  return <LogInForm />
 }
