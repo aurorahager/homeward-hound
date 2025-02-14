@@ -47,57 +47,6 @@ const theme = createTheme({
   shape: {
     borderRadius: 4,
   },
-  // components: {
-  //   MuiButton: {
-  //     styleOverrides: {
-  //       root: {
-  //         borderRadius: 4,
-  //         textTransform: 'none',
-  //         boxShadow: 'none',
-  //         '&:hover': {
-  //           boxShadow: 'none',
-  //         },
-  //       },
-  //       outlined: {
-  //         border: '2px solid #AEC6CF',
-  //         color: '#2C2C2C',
-  //         backgroundColor: 'transparent',
-  //         '&:hover': {
-  //           backgroundColor: '#F0F8FF',
-  //         },
-  //       },
-  //     },
-  //   },
-  //   MuiTextField: {
-  //     styleOverrides: {
-  //       root: {
-  //         '& .MuiOutlinedInput-root': {
-  //           borderRadius: 2,
-  //           '& fieldset': {
-  //             borderColor: '#AEC6CF',
-  //           },
-  //           '&:hover fieldset': {
-  //             borderColor: '#85A9B4',
-  //           },
-  //           '&.Mui-focused fieldset': {
-  //             borderColor: '#85A9B4',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  //   MuiIconButton: {
-  //     styleOverrides: {
-  //       root: {
-  //         color: '#2C2C2C',
-  //         borderRadius: 2,
-  //         '&:hover': {
-  //           backgroundColor: '#F0F8FF',
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
   components: {
     MuiSvgIcon: {
       styleOverrides: {
@@ -110,13 +59,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            // backgroundColor: '#8fbfb7',
-            '& fieldset': {
-              // borderColor: '#b3d1df',
-            },
-            '&:hover fieldset': {
-              // borderColor: '#f6c28b',
-            },
             '&.Mui-focused fieldset': {
               borderColor: '#7ba2b6',
             },
@@ -124,10 +66,6 @@ const theme = createTheme({
           '& .MuiInputBase-input': {
             color: '#4e4e4e',
           },
-          // '& .MuiInputBase-input::placeholder': {
-          //   color: '#9a9a9a', // Subtle placeholder
-          //   opacity: 1,
-          // },
         },
       },
     },
@@ -188,7 +126,6 @@ const theme = createTheme({
             color: '#4e4e4e',
           },
         },
-
         menu: {
           backgroundColor: '#eaeccf',
         },

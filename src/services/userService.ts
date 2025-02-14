@@ -1,8 +1,8 @@
 import { api } from '@/lib/api'
-import { LoginInput } from '@/types/api'
+import { LoginParams } from '@/types/api'
 
-export const setUserLogin = (data: LoginInput): Promise<> =>
+export const setUserLogin = (data: LoginParams): Promise<void> =>
   api.post(`/auth/login`, data)
 
-export const setUserLogout = (data: LoginInput): Promise<> =>
+export const setUserLogout = (data: LoginParams): Promise<void> =>
   api.post(`/auth/logout`, data)

@@ -1,14 +1,10 @@
-import Axios, { AxiosError } from 'axios'
+import Axios, {
+  InternalAxiosRequestConfig,
+  AxiosError,
+  AxiosResponse,
+} from 'axios'
 
 import Router from 'next/router'
-
-import {
-  ApiResponse,
-  Dog,
-  Match,
-  RequestConfig,
-  ResponseAxiosError,
-} from '@/types/api'
 
 import { API_BASE_URL } from '@/utils/constants'
 
@@ -16,7 +12,7 @@ export const api = Axios.create({
   baseURL: API_BASE_URL,
 })
 
-const requestInterceptor = (config: RequestConfig): RequestConfig => {
+const requestInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   const { headers } = config
   if (headers) {
     headers.Accept = 'application/json'
@@ -33,12 +29,12 @@ const requestErrorInterceptor = (error: AxiosError): Promise<AxiosError> =>
   Promise.reject(error)
 
 const responseInterceptor = (
-  response: ApiResponse<Dog[] | string[] | Match>,
-): ApiResponse<Dog[] | string[]> => response.data
+  response: AxiosResponse
+): AxiosResponse => response.data
 
 const responseErrorInterceptor = (
-  error: ResponseAxiosError,
-): Promise<ResponseAxiosError> => {
+  error: AxiosError,
+): Promise<AxiosError> => {
   // TODO: show error notification
   if (error.response?.status === 401) {
     Router.push('/login')

@@ -1,6 +1,6 @@
 import { FindMatchButton } from './styles'
 
-export default function MatchButton(): JSX.Element {
+export default function MatchButton(): React.ReactElement {
   const handleGenerateMatch = () => {
     // setIsOpen(true)
   }

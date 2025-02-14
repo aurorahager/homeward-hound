@@ -11,16 +11,16 @@ import {
   Typography,
 } from '@mui/material'
 
-import { useFaveDogs } from '@/context/dogsContext'
+// import { useFaveDogs } from '@/context/dogsContext'
 import { Dog } from '@/types/api'
 
-export default function DogCard({ dog }: { dog: Dog }) {
+export default function DogCard({ dog }: { dog: Dog }): React.ReactElement {
   console.log('DOG INFO', dog)
-  const { faves, setFaves } = useFaveDogs()
+  // const { faves, setFaves } = useFaveDogs()
 
   const handleFavorite = () => {
-    setFaves((prev) => [...prev, dog.id])
-    console.log('FAVES', faves)
+    // setFaves((prev) => [...prev, dog.id])
+    // console.log('FAVES', faves)
   }
   return (
     <Card sx={{ width: 345 }}>
@@ -67,11 +67,11 @@ export default function DogCard({ dog }: { dog: Dog }) {
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleFavorite}>
-          {faves.includes(dog.id) ? (
+          {/* {faves.includes(dog.id) ? (
             <FavoriteOutlined />
           ) : (
             <FavoriteBorderOutlined />
-          )}
+          )} */}
           Favorite
         </Button>
       </CardActions>

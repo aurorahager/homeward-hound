@@ -8,7 +8,7 @@ import DogCard from '../DogCard'
 
 export default function DogsList() {
   const { data } = useDogSearch()
-  const { dogs } = useDogsInfo(data)
+  const { dogs } = useDogsInfo(data?.resultIds ?? [])
   console.log('DOGGS', data, dogs)
   return (
     <Container

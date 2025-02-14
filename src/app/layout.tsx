@@ -1,7 +1,7 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 
-import { DogsProvider } from '@/context/dogsContext'
+import { DogProvider } from '@/context/dogsContext'
 import ThemeRegistry from '../components/ThemeRegistry'
 
 export const metadata: Metadata = {
@@ -13,13 +13,13 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
-}>): JSX.Element {
+}>): React.ReactElement {
   return (
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
           <ThemeRegistry>
-            <DogsProvider>{children}</DogsProvider>
+            <DogProvider>{children}</DogProvider>
           </ThemeRegistry>
         </AppRouterCacheProvider>
       </body>

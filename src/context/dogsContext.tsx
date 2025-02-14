@@ -1,21 +1,22 @@
 'use client'
 
-import { createContext, ReactNode, useContext } from 'react'
+import { createContext, ReactNode, useContext, useReducer } from 'react'
 
 interface DogState {
   favoriteIds: string[]
   matchId: string | null
   isAuthenticated: boolean
-  query: Record<string, string>
-  currentPage: number
+  query: string,
+  prevPage: string,
+  nextPage: string,
 }
 
 type DogAction =
-  | { type: 'ADD_FAVORITE'; payload: string }
+  | { type: 'SET_FAVORITE'; payload: string }
   | { type: 'REMOVE_FAVORITE'; payload: string }
   | { type: 'SET_MATCH'; payload: string | null }
   | { type: 'SET_AUTH'; payload: boolean }
-  | { type: 'SET_QUERY'; payload: string }
+  | { type: 'SET_SEARCH_QUERY'; payload: string }
   | { type: 'SET_NEXT_PAGE'; payload: string }
   | { type: 'SET_PREV_PAGE'; payload: string }
 
@@ -26,7 +27,6 @@ const initialState: DogState = {
   prevPage: '',
   nextPage: '',
   query: '',
-  currentPage: 1,
 }
 
 const dogReducer = (state: DogState, action: DogAction): DogState => {
@@ -42,7 +42,7 @@ const dogReducer = (state: DogState, action: DogAction): DogState => {
       return { ...state, matchId: action.payload }
     case 'SET_AUTH':
       return { ...state, isAuthenticated: action.payload }
-    case 'SET_PREV_QUERY':
+    case 'SET_PREV_PAGE':
       return { ...state, prevPage: action.payload }
     case 'SET_NEXT_PAGE':
       return { ...state, nextPage: action.payload }
@@ -70,7 +70,7 @@ export function DogProvider({ children }: { children: ReactNode }) {
 export const useDogContext = () => {
   const context = useContext(DogContext)
   if (!context) {
-    throw new Error('useDogContext must be used within a DogProvider')
+    throw new Error('useDogContext outside of the DogProvider')
   }
   return context
 }

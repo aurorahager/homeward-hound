@@ -2,21 +2,24 @@
 
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { sortButtonStyling } from './styles'
+// import { Dispatch, SetStateAction, JSX } from 'react'
+import { SelectChangeEvent } from '@mui/material'
 
 type props = {
   sort: string
-  setSort: Dispatch<SetStateAction<string>>
+  setSort: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function SortButton({ sort, setSort }: props): JSX.Element {
-  const handleSortChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+export default function SortButton({ sort, setSort }: props): React.ReactElement {
+
+  const handleSortChange = (e: SelectChangeEvent<string>): void => {
     setSort(e.target.value)
   }
+
   return (
     <FormControl sx={sortButtonStyling}>
       <InputLabel id="sort-by">Sort By</InputLabel>
       <Select
-        s
         label="Sort By"
         labelId="sort-by"
         value={sort}

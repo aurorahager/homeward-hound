@@ -5,7 +5,7 @@ import SearchButton from '@/components/SearchButton'
 import SortButton from '@/components/SortButton'
 import { useDogBreeds } from '@/services/dogsService'
 import { Autocomplete, Divider, TextField } from '@mui/material'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
   BarStack,
   FilterOptionsStack,
@@ -13,26 +13,29 @@ import {
   autoCompleteStyling,
 } from './styles'
 
-export default function SearchBar() {
-  const { breeds } = useDogBreeds()
+type StateTypes = {
+  breeds: string[],
+  ageMin: number | null,
+  ageMax: number | null,
+}
+export default function SearchBar(): React.ReactElement {
+  const { data: breedsList, isError, isLoading } = useDogBreeds()
 
-  const [search, setSearch] = useState({
+  const [search, setSearch] = useState<StateTypes>({
     breeds: [],
     ageMin: null,
     ageMax: null,
-    zipcode: null,
   })
 
   const [sort, setSort] = useState('breed:desc')
 
-  const [isOpen, setIsOpen] = useState(false)
 
-  const handleBreedChange = (e: any, value) => {
+  const handleBreedChange = (e: React.SyntheticEvent, value: string[]) => {
     console.log('SEARCH', value)
     setSearch((prev) => ({ ...prev, breeds: value }))
   }
 
-  const handleNumberChange = (e: any) => {
+  const handleNumberChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setSearch((prev) => ({ ...prev, [name]: value }))
   }
@@ -43,7 +46,7 @@ export default function SearchBar() {
         <Autocomplete
           disablePortal
           multiple
-          options={breeds ?? []}
+          options={breedsList ?? []}
           renderInput={(params) => <TextField {...params} label="Breed" />}
           sx={autoCompleteStyling}
           onChange={handleBreedChange}

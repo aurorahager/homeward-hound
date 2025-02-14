@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 
 import { setUserLogin } from '@/services/userService'
 
-export default function LogInForm(): JSX.Element {
+export default function LogInForm(): React.ReactElement {
   const router = useRouter()
   const [credentials, setCredentials] = useState({ name: '', email: '' })
 
@@ -18,7 +18,7 @@ export default function LogInForm(): JSX.Element {
   }
 
   // Add input validation and only push after success
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault()
     await setUserLogin(credentials)
     router.push('/search')

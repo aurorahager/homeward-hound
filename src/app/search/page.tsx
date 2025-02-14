@@ -3,7 +3,7 @@ import { isLoggedIn } from '@/utils/auth'
 import DogsList from '../../components/DogsList'
 import SearchBar from '../../components/SearchBar'
 
-export default async function Search(): FC {
+export default async function Search(): Promise<React.ReactElement> {
   const isUser = await isLoggedIn()
   if (!isUser) {
     // redirect('/login')

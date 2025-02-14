@@ -1,9 +1,3 @@
-import {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-  AxiosResponse,
-} from 'axios'
 
 export interface LoginParams {
   name: string
@@ -32,31 +26,11 @@ export interface Error {
   status: number
 }
 
-export type SWRData<T, K extends string> = {
-  [key in K]: T
+export interface GetResponse {
+  data?: string[]
 }
 
-export interface SWRResponse<T, K extends string> extends SWRData<T, K> {
+export interface HookResponse {
   isLoading: boolean
-  isError: Error | null
+  isError: Error | undefined
 }
-
-export interface RequestConfig extends AxiosRequestConfig {
-  headers?: AxiosRequestHeaders
-  params?: Record<string, string | number | boolean>
-}
-
-export interface ResponseAxiosError<T = Error> extends AxiosError<T> {
-  response?: {
-    data: T
-    status: number
-    statusText: string
-    headers: Record<string, string>
-    config: unknown
-    request?: unknown
-  }
-}
-
-type Response<T> = SearchResponse | T[] | Match
-
-export interface ApiResponse<T> extends AxiosResponse<Response<T>> {}

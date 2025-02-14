@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-export default function Nav() {
+export default function Nav(): React.ReactElement {
   return (
     <AppBar elevation={0} position="sticky" sx={{ minHeight: '4rem' }}>
       <Toolbar>

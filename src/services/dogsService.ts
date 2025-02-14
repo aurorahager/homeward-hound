@@ -2,46 +2,48 @@
 
 import useSWR from 'swr'
 
+
 import { api } from '@/lib/api'
 import {
-  ApiResponse,
   Dog,
+  Match,
   Error,
   SearchResponse,
-  SRWResponse,
+  HookResponse,
+  GetResponse,
 } from '@/types/api'
 
-const fetcher = (url: string, data?: object): ApiResponse<string[]> =>
-  api.get(url, data)
+const fetcher = (url: string, data?: object): Promise<T> =>
+  api.get<T>(url, data);
 
-export const fetcherPost = (
+const fetcherPost = (
   url: string,
   data: string[],
-): Promise<ApiResponse<string[] | Dog[]>> => api.post(url, data)
+): Promise<T> => api.post<T>(url, data)
 
-export const useDogBreeds = (): SRWResponse<string[], 'breeds'> => {
+export const useDogBreeds = (): GetResponse & HookResponse => {
   const { data, error, isLoading } = useSWR<string[], Error>(
     `/dogs/breeds`,
     fetcher,
   )
 
   return {
-    breeds: data,
+    data,
     isLoading,
     isError: error,
   }
 }
 
 export const useDogSearch = (
-  query: string,
-): SRWResponse<string[], 'dogIds'> => {
+  query?: string,
+): { data?: SearchResponse } & HookResponse => {
   const { data, error, isLoading } = useSWR<SearchResponse, Error>(
     `/dogs/search${query}`,
     fetcher,
   )
 
   return {
-    dogIds: data,
+    data,
     isLoading,
     isError: error,
   }
@@ -49,8 +51,8 @@ export const useDogSearch = (
 
 export const useDogsInfo = (
   ids: string[],
-): SRWResponse<SearchResponse, 'dogs'> => {
-  const { data, error, isLoading } = useSWR<SearchResponse, Error>(
+): { dogs?: Dog[] } & HookResponse => {
+  const { data, error, isLoading } = useSWR<Dog[], Error>(
     Array.isArray(ids) && ids?.length !== 0 ? ['/dogs', ids] : null,
     ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
   )
@@ -62,8 +64,8 @@ export const useDogsInfo = (
   }
 }
 
-export const useDogMatch = (dogs: string[]): SRWResponse<Match, 'data'> => {
-  const { data, error, isLoading } = useSWR<{ match: string }, Error>(
+export const useDogMatch = (dogs: string[]): { data?: Match } & HookResponse => {
+  const { data, error, isLoading } = useSWR<Match, Error>(
     ['/dogs/match', dogs],
     ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
   )
