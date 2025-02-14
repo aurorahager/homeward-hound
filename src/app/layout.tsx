@@ -1,7 +1,7 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 
-import { FavDogsProvider } from '@/context/favDogsContext'
+import { DogsProvider } from '@/context/dogsContext'
 import ThemeRegistry from '../components/ThemeRegistry'
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeRegistry>
-            <FavDogsProvider>{children}</FavDogsProvider>
+            <DogsProvider>{children}</DogsProvider>
           </ThemeRegistry>
         </AppRouterCacheProvider>
       </body>

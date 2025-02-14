@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import { useFaveDogs } from '@/context/favDogsContext'
+import { useFaveDogs } from '@/context/dogsContext'
 import { Dog } from '@/types/api'
 
 export default function DogCard({ dog }: { dog: Dog }) {

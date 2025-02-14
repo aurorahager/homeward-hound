@@ -5,8 +5,6 @@ import {
   AxiosResponse,
 } from 'axios'
 
-// TODO: add types for request and response data
-
 export interface LoginParams {
   name: string
   email: string
@@ -22,16 +20,25 @@ export interface Dog {
 export interface Match {
   match: string
 }
-export interface SearchedDogs {
+export interface SearchResponse {
   resultIds: string[]
   total: number
   next?: string
   prev?: string
 }
 
-export interface ErrorResponseData {
+export interface Error {
   message: string
-  statusCode: number
+  status: number
+}
+
+export type SWRData<T, K extends string> = {
+  [key in K]: T
+}
+
+export interface SWRResponse<T, K extends string> extends SWRData<T, K> {
+  isLoading: boolean
+  isError: Error | null
 }
 
 export interface RequestConfig extends AxiosRequestConfig {
@@ -39,8 +46,7 @@ export interface RequestConfig extends AxiosRequestConfig {
   params?: Record<string, string | number | boolean>
 }
 
-export interface ResponseAxiosError<T = ErrorResponseData>
-  extends AxiosError<T> {
+export interface ResponseAxiosError<T = Error> extends AxiosError<T> {
   response?: {
     data: T
     status: number
@@ -51,8 +57,6 @@ export interface ResponseAxiosError<T = ErrorResponseData>
   }
 }
 
-type Response<T> =
-  | { resultIds: T[]; total: number; next?: string; prev?: string }
-  | T[]
+type Response<T> = SearchResponse | T[] | Match
 
 export interface ApiResponse<T> extends AxiosResponse<Response<T>> {}

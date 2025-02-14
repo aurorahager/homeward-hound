@@ -1,3 +1,4 @@
+import { useFaveDogs } from '@/context/dogsContext'
 import { useDogMatchInfo } from '@/services/dogsService'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -11,8 +12,9 @@ type props = {
   setIsOpen: (value: boolean) => void
   dogId: string
 }
-export default function MatchModal({ isOpen, setIsOpen, dogId }: props): FC {
-  console.log('DOGID', dogId)
+export default function MatchModal({ isOpen, setIsOpen }: props): FC {
+  const [faves, setFaves] = useFaveDogs()
+  const { dogId } = useDogMatch(faves)
   const { data } = useDogMatchInfo([dogId])
   const { name, breed, location, age, img } = data ?? {}
   const handleCloseModal = () => {

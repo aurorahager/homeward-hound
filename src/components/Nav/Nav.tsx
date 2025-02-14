@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 
 export default function Nav() {
   return (
-    <AppBar elevation={0} position="sticky">
+    <AppBar elevation={0} position="sticky" sx={{ minHeight: '4rem' }}>
       <Toolbar>
         <Typography
           style={{ flexGrow: 1 }}

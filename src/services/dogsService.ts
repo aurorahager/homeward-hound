@@ -1,21 +1,15 @@
 'use client'
 
 import useSWR from 'swr'
-import useSWRMutation from 'swr/mutation'
 
 import { api } from '@/lib/api'
-import { ApiResponse, Dog } from '@/types/api'
-
-type ErrorResponse = {
-  message: string
-  statusCode: number
-}
-
-type DogBreedsResponse = {
-  breeds: string[] | undefined
-  isLoading: boolean
-  isError: ErrorResponse | undefined
-}
+import {
+  ApiResponse,
+  Dog,
+  Error,
+  SearchResponse,
+  SRWResponse,
+} from '@/types/api'
 
 const fetcher = (url: string, data?: object): ApiResponse<string[]> =>
   api.get(url, data)
@@ -25,8 +19,8 @@ export const fetcherPost = (
   data: string[],
 ): Promise<ApiResponse<string[] | Dog[]>> => api.post(url, data)
 
-export const useDogBreeds = (): DogBreedsResponse => {
-  const { data, error, isLoading } = useSWR<string[], ErrorResponse>(
+export const useDogBreeds = (): SRWResponse<string[], 'breeds'> => {
+  const { data, error, isLoading } = useSWR<string[], Error>(
     `/dogs/breeds`,
     fetcher,
   )
@@ -38,46 +32,45 @@ export const useDogBreeds = (): DogBreedsResponse => {
   }
 }
 
-export const useDogSearch = (): { data: string[] } => {
-  const { data } = useSWR<string[], ErrorResponse>('/dogs/search', fetcher)
-  return { data }
-}
-
-export const useDogsUpdate = (): { trigger: () => Promise<void> } => {
-  const { trigger } = useSWRMutation<string[], ErrorResponse>(
-    '/dogs/search',
+export const useDogSearch = (
+  query: string,
+): SRWResponse<string[], 'dogIds'> => {
+  const { data, error, isLoading } = useSWR<SearchResponse, Error>(
+    `/dogs/search${query}`,
     fetcher,
   )
-  return { trigger }
+
+  return {
+    dogIds: data,
+    isLoading,
+    isError: error,
+  }
 }
 
-type Ids = {
-  resultIds: string[]
-}
-
-export const useDogsInfo = (ids: Ids): ApiResponse<Dog[]> => {
-  const { data } = useSWR<Dog[]>(
-    Array.isArray(ids?.resultIds) && ids?.resultIds.length !== 0
-      ? ['/dogs', ids.resultIds]
-      : null,
+export const useDogsInfo = (
+  ids: string[],
+): SRWResponse<SearchResponse, 'dogs'> => {
+  const { data, error, isLoading } = useSWR<SearchResponse, Error>(
+    Array.isArray(ids) && ids?.length !== 0 ? ['/dogs', ids] : null,
     ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
   )
 
   return {
     dogs: data,
+    isLoading,
+    isError: error,
   }
 }
 
-export const useDogMatch = (data: []): Promise<ApiResponse<Dog[]>> =>
-  api.post(`/dogs/match`, data)
-
-export const useDogMatchInfo = (id: string): ApiResponse<Dog[]> => {
-  const { data } = useSWR<Dog[]>(
-    ['/dogs', id],
-    ([url, dogId]: [string, string[]]) => fetcherPost(url, dogId),
+export const useDogMatch = (dogs: string[]): SRWResponse<Match, 'data'> => {
+  const { data, error, isLoading } = useSWR<{ match: string }, Error>(
+    ['/dogs/match', dogs],
+    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
   )
 
   return {
-    dog: data,
+    data,
+    isLoading,
+    isError: error,
   }
 }

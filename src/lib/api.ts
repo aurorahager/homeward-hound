@@ -5,9 +5,9 @@ import Router from 'next/router'
 import {
   ApiResponse,
   Dog,
+  Match,
   RequestConfig,
   ResponseAxiosError,
-  SearchedDogs,
 } from '@/types/api'
 
 import { API_BASE_URL } from '@/utils/constants'
@@ -29,22 +29,16 @@ const requestInterceptor = (config: RequestConfig): RequestConfig => {
   }
 }
 
-const requestErrorInterceptor = (error: AxiosError): Promise<AxiosError> => {
-  console.error(`[request error] [${error.message} - ${error.status}]`)
-  return Promise.reject(error)
-}
+const requestErrorInterceptor = (error: AxiosError): Promise<AxiosError> =>
+  Promise.reject(error)
 
 const responseInterceptor = (
-  response: ApiResponse<Dog[] | SearchedDogs | string[]>,
-): ApiResponse<Dog[] | SearchedDogs | string[]> => {
-  console.info(`[response] [${JSON.stringify(response.data)}]`)
-  return response.data
-}
+  response: ApiResponse<Dog[] | string[] | Match>,
+): ApiResponse<Dog[] | string[]> => response.data
 
 const responseErrorInterceptor = (
   error: ResponseAxiosError,
 ): Promise<ResponseAxiosError> => {
-  console.error(`[response error] [${error.message} - ${error.status}]`)
   // TODO: show error notification
   if (error.response?.status === 401) {
     Router.push('/login')
