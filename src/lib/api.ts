@@ -1,10 +1,9 @@
+'use client'
 import Axios, {
   InternalAxiosRequestConfig,
   AxiosError,
   AxiosResponse,
 } from 'axios'
-
-import Router from 'next/router'
 
 import { API_BASE_URL } from '@/utils/constants'
 
@@ -35,11 +34,6 @@ const responseInterceptor = (
 const responseErrorInterceptor = (
   error: AxiosError,
 ): Promise<AxiosError> => {
-  // TODO: show error notification
-  if (error.response?.status === 401) {
-    Router.push('/login')
-  }
-
   return Promise.reject(error)
 }
 

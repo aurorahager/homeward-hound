@@ -1,9 +1,9 @@
 'use client'
 
-import useSWR from 'swr'
-
+import useSWR, { preload } from 'swr'
 
 import { api } from '@/lib/api'
+
 import {
   Dog,
   Match,
@@ -20,6 +20,7 @@ const fetcherPost = (
   url: string,
   data: string[],
 ): Promise<T> => api.post<T>(url, data)
+
 
 export const useDogBreeds = (): GetResponse & HookResponse => {
   const { data, error, isLoading } = useSWR<string[], Error>(
@@ -38,8 +39,8 @@ export const useDogSearch = (
   query?: string,
 ): { data?: SearchResponse } & HookResponse => {
   const { data, error, isLoading } = useSWR<SearchResponse, Error>(
-    `/dogs/search${query}`,
-    fetcher,
+    `/dogs/search?${query}`,
+    fetcher
   )
 
   return {
@@ -53,8 +54,8 @@ export const useDogsInfo = (
   ids: string[],
 ): { dogs?: Dog[] } & HookResponse => {
   const { data, error, isLoading } = useSWR<Dog[], Error>(
-    Array.isArray(ids) && ids?.length !== 0 ? ['/dogs', ids] : null,
-    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
+    ['/dogs', ids],
+    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds,),
   )
 
   return {
@@ -75,4 +76,9 @@ export const useDogMatch = (dogs: string[]): { data?: Match } & HookResponse => 
     isLoading,
     isError: error,
   }
+}
+
+export const usePrefetchPage = (url: string): void => {
+  preload(`/dogs/search?${url}`, fetcher).then((data) => preload('/dogs', (url) => fetcherPost(url, data.resultIds)))
+
 }

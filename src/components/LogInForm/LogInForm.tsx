@@ -3,11 +3,12 @@
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-
+import { useDogContext } from '@/context/dogsContext'
 import { setUserLogin } from '@/services/userService'
 
 export default function LogInForm(): React.ReactElement {
   const router = useRouter()
+  const { dispatch } = useDogContext()
   const [credentials, setCredentials] = useState({ name: '', email: '' })
 
   const handleInputChange = (
@@ -17,10 +18,11 @@ export default function LogInForm(): React.ReactElement {
     setCredentials({ ...credentials, [name]: value })
   }
 
-  // Add input validation and only push after success
+  // TODO Add input validation and only push after success
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault()
     await setUserLogin(credentials)
+    dispatch({ type: 'LOGIN' })
     router.push('/search')
   }
 

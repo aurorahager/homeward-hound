@@ -6,12 +6,14 @@ import SortButton from '@/components/SortButton'
 import { useDogBreeds } from '@/services/dogsService'
 import { Autocomplete, Divider, TextField } from '@mui/material'
 import React, { useState } from 'react'
+import { createQueryString } from '@/utils/helpers'
 import {
   BarStack,
   FilterOptionsStack,
   NumberField,
   autoCompleteStyling,
 } from './styles'
+import { useDogContext } from '@/context/dogsContext'
 
 type StateTypes = {
   breeds: string[],
@@ -20,6 +22,7 @@ type StateTypes = {
 }
 export default function SearchBar(): React.ReactElement {
   const { data: breedsList, isError, isLoading } = useDogBreeds()
+  const { dispatch } = useDogContext()
 
   const [search, setSearch] = useState<StateTypes>({
     breeds: [],
@@ -30,14 +33,18 @@ export default function SearchBar(): React.ReactElement {
   const [sort, setSort] = useState('breed:desc')
 
 
-  const handleBreedChange = (e: React.SyntheticEvent, value: string[]) => {
-    console.log('SEARCH', value)
+  const handleBreedChange = (e: React.SyntheticEvent, value: string[]): void => {
     setSearch((prev) => ({ ...prev, breeds: value }))
   }
 
-  const handleNumberChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleNumberChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const { name, value } = e.target
     setSearch((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = (): void => {
+    const stringQ = createQueryString(search, sort)
+    dispatch({ type: 'SET_SEARCH_QUERY', payload: stringQ })
   }
 
   return (
@@ -64,10 +71,9 @@ export default function SearchBar(): React.ReactElement {
           onChange={handleNumberChange}
         />
         <SortButton setSort={setSort} sort={sort} />
-        <SearchButton />
+        <SearchButton handleSubmit={handleSubmit} />
       </FilterOptionsStack>
       <MatchButton />
-      {/* <MatchModal isOpen={isOpen} setIsOpen={setIsOpen} /> */}
     </BarStack>
   )
 }

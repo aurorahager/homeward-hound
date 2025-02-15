@@ -1,9 +1,17 @@
+'use client'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { setUserLogout } from '@/services/userService'
+import { useDogContext } from '@/context/dogsContext'
 
 export default function Nav(): React.ReactElement {
+  const { dispatch } = useDogContext()
+  const handleLogout = () => {
+    setUserLogout()
+    dispatch({ type: 'LOGOUT' })
+  }
   return (
     <AppBar elevation={0} position="sticky" sx={{ minHeight: '4rem' }}>
       <Toolbar>
@@ -33,7 +41,7 @@ export default function Nav(): React.ReactElement {
         >
           Homeward Hound
         </Typography>
-        <Button color="inherit">Logout</Button>
+        <Button color="inherit" onClick={handleLogout}>Logout</Button>
       </Toolbar>
     </AppBar>
   )

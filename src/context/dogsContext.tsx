@@ -13,12 +13,11 @@ interface DogState {
 
 type DogAction =
   | { type: 'SET_FAVORITE'; payload: string }
-  | { type: 'REMOVE_FAVORITE'; payload: string }
   | { type: 'SET_MATCH'; payload: string | null }
-  | { type: 'SET_AUTH'; payload: boolean }
+  | { type: 'LOGIN' }
+  | { type: 'LOGOUT' }
   | { type: 'SET_SEARCH_QUERY'; payload: string }
-  | { type: 'SET_NEXT_PAGE'; payload: string }
-  | { type: 'SET_PREV_PAGE'; payload: string }
+  | { type: 'SET_PAGES'; payload: { prev: string, next: string } }
 
 const initialState: DogState = {
   favoriteIds: [],
@@ -26,7 +25,7 @@ const initialState: DogState = {
   isAuthenticated: false,
   prevPage: '',
   nextPage: '',
-  query: '',
+  query: 'size=24',
 }
 
 const dogReducer = (state: DogState, action: DogAction): DogState => {
@@ -40,14 +39,14 @@ const dogReducer = (state: DogState, action: DogAction): DogState => {
       }
     case 'SET_MATCH':
       return { ...state, matchId: action.payload }
-    case 'SET_AUTH':
-      return { ...state, isAuthenticated: action.payload }
-    case 'SET_PREV_PAGE':
-      return { ...state, prevPage: action.payload }
-    case 'SET_NEXT_PAGE':
-      return { ...state, nextPage: action.payload }
+    case 'SET_PAGES':
+      return { ...state, prevPage: action.payload.prev, nextPage: action.payload.next }
     case 'SET_SEARCH_QUERY':
       return { ...state, query: action.payload }
+    case 'LOGIN':
+      return { ...state, isAuthenticated: true }
+    case 'LOGOUT':
+      return { ...state, isAuthenticated: false }
     default:
       return state
   }

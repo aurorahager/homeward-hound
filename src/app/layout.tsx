@@ -2,7 +2,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 
 import { DogProvider } from '@/context/dogsContext'
-import ThemeRegistry from '../components/ThemeRegistry'
+
 
 export const metadata: Metadata = {
   title: 'Homeward Hound',
@@ -18,9 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ThemeRegistry>
-            <DogProvider>{children}</DogProvider>
-          </ThemeRegistry>
+          <DogProvider>
+            {children}
+          </DogProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
