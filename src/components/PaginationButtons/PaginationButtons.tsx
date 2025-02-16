@@ -4,6 +4,8 @@ import { Button, Stack } from "@mui/material"
 import { useDogContext } from "@/context/dogsContext"
 import { usePrefetchPage } from "@/services/dogsService"
 
+import { PaginationButton, PaginationContainer } from "./styles"
+
 export default function PaginationButtons(): React.ReactElement {
   const { state, dispatch } = useDogContext()
   const { prevPage, nextPage } = state ?? {}
@@ -24,10 +26,10 @@ export default function PaginationButtons(): React.ReactElement {
   }
 
   return (
-    <Stack direction="row" sx={{ padding: '5rem', m: '5rem', alignContent: 'center' }}>
-      <Button size="large" disabled={!prevPage} onClick={handlePagination(prevPage)} variant="contained">Previous</Button>
-      <Button size="large" disabled={!nextPage} onClick={handlePagination(nextPage)} onMouseEnter={handleButtonHover(nextPage)} variant="contained">Next</Button>
-    </Stack>
+    <PaginationContainer>
+      <PaginationButton size="large" disabled={!prevPage} onClick={handlePagination(prevPage)} variant="contained">Previous</PaginationButton>
+      <PaginationButton size="large" disabled={!nextPage} onClick={handlePagination(nextPage)} onMouseEnter={handleButtonHover(nextPage)} variant="contained">Next</PaginationButton>
+    </PaginationContainer>
   )
 
 }

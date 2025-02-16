@@ -1,25 +1,33 @@
 import { createTheme } from '@mui/material/styles'
 import { PaletteOptions } from '@mui/material/styles/createPalette'
+import { Nunito, Poppins } from 'next/font/google';
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 const palette: PaletteOptions = {
   primary: {
-    light: '#aad79e',
-    main: '#3e6f6d',
-    dark: '#0d302e',
-    contrastText: '#f8f1ae',
+    light: '#c5e5be',
+    main: '#89b4aa',
+    dark: '#74b4b8',
   },
   secondary: {
-    light: '#d9b592',
     main: '#f3923b',
-    dark: '#c76e0f',
-    contrastText: '#e5e7c6',
+    dark: '#d47c29',
   },
   background: {
-    default: '#e8dba5',
-    paper: '#ebdfae',
+    default: '#f5f5f1',
+    paper: '#e7f0e4',
   },
   text: {
-    primary: '#24322e',
+    primary: '#3e6f6d',
     secondary: '#51635a',
   },
 }
@@ -27,34 +35,22 @@ const palette: PaletteOptions = {
 const theme = createTheme({
   palette,
   typography: {
-    fontFamily: `'Roboto', sans-serif`,
+    fontFamily: nunito.style.fontFamily,
+    h1: {
+      fontFamily: poppins.style.fontFamily,
+    },
+    h2: {
+      fontFamily: poppins.style.fontFamily,
+    },
     button: {
       textTransform: 'none',
       fontWeight: 600,
     },
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 700,
-    },
-    h2: {
-      fontSize: '2rem',
-      fontWeight: 600,
-    },
-    body1: {
-      fontSize: '1rem',
-    },
   },
   shape: {
-    borderRadius: 4,
+    borderRadius: 8,
   },
   components: {
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          strokeWidth: '1',
-        },
-      },
-    },
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -72,62 +68,19 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 4,
           textTransform: 'none',
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
-          },
         },
       },
     },
     MuiAutocomplete: {
       styleOverrides: {
         root: {
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              // borderColor: '#b3d1df',
-            },
-            '&:hover fieldset': {
-              // borderColor: '#f6c28b',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#7ba2b6',
-            },
-          },
-          '& .MuiInputBase-input': {
-            color: '#4e4e4e',
-          },
-        },
-        popper: {
-          '& .MuiPaper-root': {
-            backgroundColor: '#eaeccf',
-          },
         },
       },
     },
     MuiSelect: {
       styleOverrides: {
         root: {
-          // backgroundColor: '#8fbfb7',
-          borderColor: '#f3923b',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: '#f3923b',
-            },
-            '&:hover fieldset': {
-              borderColor: '#f3923b',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#f3923b',
-            },
-          },
-          '& .MuiInputBase-input': {
-            color: '#4e4e4e',
-          },
-        },
-        menu: {
-          backgroundColor: '#eaeccf',
         },
       },
     },

@@ -12,21 +12,30 @@ import {
   Skeleton,
 } from '@mui/material'
 
+import { CardContainer } from './styles'
+
 import { useDogContext } from '@/context/dogsContext'
 import { Dog } from '@/types/api'
-export default function DogCard({ dog, isLoading }: { dog: Dog, isLoading: boolean }): React.ReactElement {
+
+type Props = {
+  dog: Dog,
+  isLoading: boolean
+}
+
+export default function DogCard({ dog, isLoading }: Props): React.ReactElement {
   const { state, dispatch } = useDogContext()
   const { img, name, breed, zip_code, id, age } = dog ?? {}
 
   const handleFavorite = () => {
     dispatch({ type: 'SET_FAVORITE', payload: dog.id })
   }
+
   return (
-    <Card sx={{ width: 345 }}>
+    <CardContainer>
       <Box
         sx={{
           width: '100%',
-          height: 250,
+          height: '65%',
           overflow: 'hidden',
           display: 'flex',
           justifyContent: 'center',
@@ -43,18 +52,8 @@ export default function DogCard({ dog, isLoading }: { dog: Dog, isLoading: boole
                 height: '100%',
                 width: '100%',
                 objectFit: 'cover',
-                filter: 'sepia(20%) contrast(90%) brightness(80%)',
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'rgba(210, 180, 140, 0.35)',
-                  mixBlendMode: 'multiply',
-                  pointerEvents: 'none',
-                },
+
+
               }}
             />
         }
@@ -64,9 +63,9 @@ export default function DogCard({ dog, isLoading }: { dog: Dog, isLoading: boole
           <Typography gutterBottom component="div" variant="h5">
             {name}
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }} variant="body2">
-            {breed} {age} {zip_code}
-          </Typography>
+          {/* <Typography sx={{ color: 'text.secondary' }} variant="body2"> */}
+          {breed} {age} {zip_code}
+          {/* </Typography> */}
         </>
         }
       </CardContent>
@@ -82,6 +81,6 @@ export default function DogCard({ dog, isLoading }: { dog: Dog, isLoading: boole
           </Button>
         }
       </CardActions>
-    </Card>
+    </CardContainer>
   )
 }

@@ -1,27 +1,18 @@
-import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-
-import Stack from '@mui/material/Stack'
-import TextField from '@mui/material/TextField'
-
-export const autoCompleteStyling = css`
-  width: 22rem;
-
-  @media (max-width: 787px) {
-    grid-column: 1 / span 2;
-  }
-`
+import { Stack } from '@mui/material'
 
 export const BarStack = styled(Stack)`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
   position: sticky;
+  margin: 0 auto;
   padding: 0.7rem 0rem;
-  max-width: 100vw;
+  max-width: 98vw;
   background-color: ${({ theme }) => theme.palette.primary.light};
-  top: 8.6vh;
-  z-index: 1100;
+  border-radius: 12px;
+  top: 15vh;
+  // z-index: 1100;
 
   @media (max-width: 787px) {
     flex-direction: column;
@@ -45,17 +36,5 @@ export const FilterOptionsStack = styled(Stack)`
     justify-items: center;
     align-items: center;
     align-content: center;
-  }
-`
-
-export const NumberField = styled(TextField)`
-  min-width: 10rem;
-  max-width: 15rem;
-  input {
-    appearance: textfield;
-  }
-
-  @media (max-width: 787px) {
-    width: 50%;
   }
 `

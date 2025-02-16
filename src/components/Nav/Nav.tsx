@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography'
 import { setUserLogout } from '@/services/userService'
 import { useDogContext } from '@/context/dogsContext'
 
+import { HeaderContainer, LogoText } from './styles'
+
 export default function Nav(): React.ReactElement {
   const { dispatch } = useDogContext()
   const handleLogout = () => {
@@ -13,36 +15,14 @@ export default function Nav(): React.ReactElement {
     dispatch({ type: 'LOGOUT' })
   }
   return (
-    <AppBar elevation={0} position="sticky" sx={{ minHeight: '4rem' }}>
+    <HeaderContainer elevation={0}>
       <Toolbar>
-        <Typography
-          style={{ flexGrow: 1 }}
-          variant="h6"
-          sx={{
-            fontFamily: "'Cabin', sans-serif",
-            fontWeight: '700',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)',
-            position: 'relative',
-            display: 'inline-block',
-            '::after': {
-              content: '""',
-              display: 'block',
-              width: '16%',
-              position: 'absolute',
-              height: '4px',
-              backgroundColor: 'secondary.main',
-              borderRadius: '2px',
-              margin: '0 auto',
-              marginTop: '2px',
-            },
-          }}
-        >
+        <LogoText>
           Homeward Hound
-        </Typography>
+        </LogoText>
+
         <Button color="inherit" onClick={handleLogout}>Logout</Button>
       </Toolbar>
-    </AppBar>
+    </HeaderContainer>
   )
 }

@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation'
 import { useDogContext } from '@/context/dogsContext'
 import { useEffect } from 'react'
 
+import { TexturedBackground } from '@/styles/globalStyles'
+
 export default function Search(): React.ReactElement | null {
   const router = useRouter()
   const { state } = useDogContext()
@@ -23,10 +25,12 @@ export default function Search(): React.ReactElement | null {
   return (
     <>
       <ThemeRegistry>
-        <Nav />
-        <SearchBar />
-        <DogsList />
-        <PaginationButtons />
+        <TexturedBackground>
+          <Nav />
+          <SearchBar />
+          <DogsList />
+          <PaginationButtons />
+        </TexturedBackground>
       </ThemeRegistry>
     </>
   )

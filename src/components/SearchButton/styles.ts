@@ -1,10 +1,12 @@
 import { css } from '@emotion/react'
 
 export const searchButtonStyling = css`
-  width: 13rem;
-  height: 54;
-  fontsize: 1.1rem;
-  fontweight: 500;
+  width: 10rem;
+  height: 3.4rem;
+  font-size: 1.1rem;
+  color: white;
+  box-shadow: none;
+  border: 
 
   @media (max-width: 787px) {
     width: 100%;

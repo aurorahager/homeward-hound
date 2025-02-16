@@ -1,4 +1,4 @@
-import { api } from '@/lib/api'
+import { api } from '@/utils/api'
 import { LoginParams } from '@/types/api'
 
 export const setUserLogin = (data: LoginParams): Promise<void> =>

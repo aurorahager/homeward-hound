@@ -8,9 +8,10 @@ import { useDogContext } from '@/context/dogsContext'
 import DogCard from '../DogCard'
 import { useEffect } from 'react'
 
+import { ListContainer } from './styles'
+
 export default function DogsList() {
   const { state, dispatch } = useDogContext()
-
   const { data, isLoading: isSearchLoading } = useDogSearch(state.query)
   const { dogs, isLoading: isInfoLoading } = useDogsInfo(data?.resultIds ?? [])
 
@@ -21,19 +22,9 @@ export default function DogsList() {
   const isLoadingState = dogs?.length === 0 || isSearchLoading || isInfoLoading
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: 3,
-        flexWrap: 'wrap',
-        mx: 1,
-        marginY: 5,
-      }}
-    >
+    <ListContainer>
       {
         dogs?.map((dog) => <DogCard key={dog.id} dog={dog} isLoading={isLoadingState} />)}
-    </Container>
+    </ListContainer>
   )
 }

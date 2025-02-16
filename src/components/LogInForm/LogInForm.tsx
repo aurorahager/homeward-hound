@@ -2,26 +2,43 @@
 
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import { useDogContext } from '@/context/dogsContext'
 import { setUserLogin } from '@/services/userService'
+import { loginSchema } from '@/utils/validation'
+
+interface FormData {
+  name: string;
+  email: string;
+}
 
 export default function LogInForm(): React.ReactElement {
   const router = useRouter()
   const { dispatch } = useDogContext()
-  const [credentials, setCredentials] = useState({ name: '', email: '' })
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ): void => {
-    const { name, value } = e.target
-    setCredentials({ ...credentials, [name]: value })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (
+      ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', '-'].includes(e.key)
+    ) {
+      return;
+    }
+    if (/^[0-9]$/.test(e.key)) {
+      e.preventDefault();
+    }
   }
 
-  // TODO Add input validation and only push after success
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-    e.preventDefault()
-    await setUserLogin(credentials)
+  const onSubmit = async (data: FormData): Promise<void> => {
+    await setUserLogin(data)
     dispatch({ type: 'LOGIN' })
     router.push('/search')
   }
@@ -38,11 +55,11 @@ export default function LogInForm(): React.ReactElement {
     >
       <Box
         sx={{
-          backgroundImage: 'url("/login-img.png")',
+          backgroundImage: 'url("/login-side.png")',
           backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: '#aad79e',
+          backgroundColor: '#bcdcd1',
           width: '50vw',
           height: '100vh',
         }}
@@ -77,17 +94,12 @@ export default function LogInForm(): React.ReactElement {
         </Typography>
       </Box>
 
-      <Box
-        noValidate
-        autoComplete="off"
-        component="form"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          backgroundColor: '#e8dba5',
-          width: '50vw',
-        }}
-      >
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '50vw',
+
+      }}>
         <Paper
           sx={{
             display: 'flex',
@@ -97,40 +109,60 @@ export default function LogInForm(): React.ReactElement {
             width: '80%',
             padding: 5,
             marginY: 5,
-            boxShadow: 'none',
-            backgroundColor: '#ebdfae',
+
           }}
         >
-          <Typography>
-            Welcome! Please enter your name and email to login.
-          </Typography>
-          <TextField
-            required
-            id="name"
-            label="Name"
-            name="name"
-            sx={{ backgroundColor: 'transparent' }}
-            variant="outlined"
-            onChange={handleInputChange}
-          />
-          <TextField
-            required
-            id="email"
-            label="Email"
-            name="email"
-            type="email"
-            variant="outlined"
-            onChange={handleInputChange}
-          />
-          <Button
-            sx={{ height: 50, marginTop: 2 }}
-            variant="contained"
-            onClick={handleSubmit}
+          <Typography variant='h3'>Welcome!</Typography>
+          <Typography variant='h6'>Your perfect canine companion awaits</Typography>
+          <Box
+            noValidate
+            autoComplete="off"
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              gap: 3,
+              padding: 5,
+              marginY: 5,
+            }}
           >
-            Login
-          </Button>
+            <Typography>
+              Please enter your name and email to login.
+            </Typography>
+            <TextField
+              required
+              error={!!errors.name}
+              helperText={errors.name?.message}
+              label="Name"
+              sx={{ backgroundColor: 'transparent' }}
+              variant="outlined"
+              onKeyDown={handleOnKeyDown}
+              {...register('name')}
+
+            />
+            <TextField
+              required
+              label="Email"
+              type="email"
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              variant="outlined"
+              {...register('email')}
+
+            />
+            <Button
+              sx={{ height: 50, marginTop: 2, color: 'white' }}
+              variant="contained"
+              type="submit"
+            >
+              Login
+            </Button>
+          </Box>
         </Paper>
       </Box>
     </Box>
   )
 }
+
