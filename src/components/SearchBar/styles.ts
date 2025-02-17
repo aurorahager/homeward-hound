@@ -18,7 +18,7 @@ export const BarStack = styled(Stack)(({ bgColor }: { bgColor: string }) => (`
   transition: background-color 0.3s ease;
   top: 0;
   z-index: 1100;
-s
+
   @media (max-width: 787px) {
     flex-direction: column;
     justify-content: space-between;

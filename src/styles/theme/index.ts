@@ -1,16 +1,12 @@
 import { createTheme } from '@mui/material/styles'
 import { PaletteOptions } from '@mui/material/styles/createPalette'
-import { Nunito, Poppins, Outfit } from 'next/font/google';
+import { Nunito, Outfit } from 'next/font/google';
 
 const nunito = Nunito({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
 });
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-});
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -45,7 +41,7 @@ const theme = createTheme({
       fontFamily: outfit.style.fontFamily,
     },
     h2: {
-      fontFamily: poppins.style.fontFamily,
+      fontFamily: outfit.style.fontFamily,
     },
     button: {
       textTransform: 'none',

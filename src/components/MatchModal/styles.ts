@@ -12,8 +12,14 @@ export const ModalContentWrapper = styled(DialogContent)`
 `
 
 export const ImgWrapper = styled.div`
-  // width: 100%;
-  height: 60%
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+
+  & > img {
+  border-radius: 12px;
+  }
 `
 export const ModalTextWrapper = styled(DialogContentText)`
 width: 100%

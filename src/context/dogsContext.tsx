@@ -25,7 +25,7 @@ const initialState: DogState = {
   isAuthenticated: false,
   prevPage: '',
   nextPage: '',
-  query: 'size=24',
+  query: '',
 }
 
 const dogReducer = (state: DogState, action: DogAction): DogState => {

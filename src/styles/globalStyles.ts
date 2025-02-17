@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 
 export const TexturedBackground = styled('div')`
   background: #f3f3f3;
-  background-image: url('/p6.webp');
+  background-image: url('/y-so-serious-white.png');
   object-fit: repeat;
   background-blend-mode: multiply;
   min-height: 100vh;

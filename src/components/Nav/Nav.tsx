@@ -29,7 +29,7 @@ export default function Nav(): React.ReactElement {
           </LogoText>
 
         </>
-        <Button color="inherit" onClick={handleLogout}>Logout</Button>
+        <Button color="inherit" onClick={handleLogout} sx={{ fontSize: '1.2rem' }} size='large'>Logout</Button>
       </Toolbar>
     </HeaderContainer>
   )

@@ -2,7 +2,6 @@
 
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { sortButtonStyling } from './styles'
-import { SelectChangeEvent } from '@mui/material'
 import { UseFormRegister } from 'react-hook-form';
 
 // TODO update prop types
@@ -13,8 +12,8 @@ type Props = {
 export default function SortSelect({ register }: Props): React.ReactElement {
 
   const sortOptions = [
-    { value: 'breed:desc', label: 'Breed: A - Z' },
-    { value: 'breed:asc', label: 'Breed: Z - A' },
+    { value: 'breed:asc', label: 'Breed: A - Z' },
+    { value: 'breed:desc', label: 'Breed: Z - A' },
     { value: 'age:asc', label: 'Age: Youngest - Oldest' },
     { value: 'age:desc', label: 'Age: Oldest - Youngest' },
     { value: 'name:asc', label: 'Name: A - Z' },

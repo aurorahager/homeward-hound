@@ -68,7 +68,9 @@ export const useDogsInfo = (
 export const useDogMatch = (dogs: string[]): { data?: Match } & HookResponse => {
   const { data, error, isLoading } = useSWR<Match, Error>(
     ['/dogs/match', dogs],
-    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
+    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds), {
+    revalidateOnFocus: false,
+  }
   )
 
   return {

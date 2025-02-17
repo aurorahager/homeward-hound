@@ -1,4 +1,3 @@
-import { SearchOutlined } from '@mui/icons-material'
 import { Button } from '@mui/material'
 
 import { searchButtonStyling } from './styles'

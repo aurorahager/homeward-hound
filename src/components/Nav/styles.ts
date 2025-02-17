@@ -10,6 +10,7 @@ export const HeaderContainer = styled(AppBar)`
   min-height: 12rem;
   max-width: 100%;
   width: 100%;
+
 `;
 
 export const LogoText = styled.h1`

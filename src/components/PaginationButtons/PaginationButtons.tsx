@@ -1,6 +1,5 @@
 'use client'
 
-import { Button, Stack } from "@mui/material"
 import { useDogContext } from "@/context/dogsContext"
 import { usePrefetchPage } from "@/services/dogsService"
 

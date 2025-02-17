@@ -10,6 +10,6 @@ type Filters = {
 
 export const createQueryString = (filters: Filters) => {
   console.log('FILTERS', filters)
-  const params = qs.stringify({ ...filters, size: '24' }, { arrayFormat: 'repeat' })
+  const params = qs.stringify({ ...filters }, { arrayFormat: 'repeat' })
   return params
 }
