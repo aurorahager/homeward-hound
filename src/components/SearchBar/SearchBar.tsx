@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Divider } from '@mui/material'
 
+import { useScrollEffect } from '@/utils/hooks';
 import { createQueryString } from '@/utils/helpers'
 import { searchSchema } from '@/utils/validation'
 import { useDogContext } from '@/context/dogsContext'
@@ -27,6 +28,7 @@ type FormValues = {
 }
 export default function SearchBar(): React.ReactElement {
   const { dispatch } = useDogContext()
+  const bgColor = useScrollEffect(40)
   // TODO fix types
   const {
     control,
@@ -50,7 +52,7 @@ export default function SearchBar(): React.ReactElement {
   }
 
   return (
-    <BarStack useFlexGap divider={<Divider flexItem orientation="vertical" />}>
+    <BarStack bgcolor={bgColor} useFlexGap divider={<Divider flexItem orientation="vertical" />}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <FilterOptionsStack useFlexGap gap={2}>
           <BreedFilter control={control} />

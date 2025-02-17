@@ -22,7 +22,7 @@ const validateAgeOrder = (min: number | null, max: number | null, isMinField: bo
 export const searchSchema = yup.object().shape({
   ageMin: yup.number()
     .nullable()
-    .transform((value) => (value === '' || isNaN(value) ? null : Number(value)))
+    .transform((value) => (value === '' || isNaN(value) || value === 0 ? null : Number(value)))
     .default(null)
     .min(0, 'Age cannot be negative')
     .test('min-less-than-max', 'Cannot be greater than max age', function (value) {
@@ -30,7 +30,7 @@ export const searchSchema = yup.object().shape({
     }),
   ageMax: yup.number()
     .nullable()
-    .transform((value) => (value === '' || isNaN(value) ? null : Number(value)))
+    .transform((value) => (value === '' || isNaN(value) || value === 0 ? null : Number(value)))
     .default(null)
     .min(0, 'Age cannot be negative')
     .test('max-greater-than-min', 'Cannot be less than min age', function (value) {

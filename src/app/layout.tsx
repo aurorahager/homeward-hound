@@ -3,8 +3,6 @@ import type { Metadata } from 'next'
 
 import { DogProvider } from '@/context/dogsContext'
 
-import { TexturedBackground } from '@/styles/globalStyles'
-
 
 export const metadata: Metadata = {
   title: 'Homeward Hound',

@@ -7,8 +7,9 @@ export const ListContainer = styled(Container)`
   grid-template-columns: repeat(1, auto);
   justify-content: center;
   gap: 1.27rem;
-  min-width: 99vw;
-  min-height: 100vh;
+  width: 98%;
+  max-width: 98%;
+  min-width: 98%;
   margin: 3rem auto;
 
   & > div {

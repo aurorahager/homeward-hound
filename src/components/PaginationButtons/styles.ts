@@ -8,7 +8,7 @@ export const PaginationContainer = styled('div')`
   align-items: center;
   gap: 3rem;
   padding: 3rem;
-  margin: 2rem 0;
+  margin: 0;
 `;
 
 export const PaginationButton = styled(Button)`

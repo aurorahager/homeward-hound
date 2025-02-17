@@ -58,16 +58,13 @@ export default function DogCard({ dog, isLoading }: Props): React.ReactElement {
             />
         }
       </Box>
-      <CardContent>
-        {isLoading ? <Skeleton animation="wave" variant="rectangular" /> : <>
-          <Typography gutterBottom component="div" variant="h5">
-            {name}
-          </Typography>
-          {/* <Typography sx={{ color: 'text.secondary' }} variant="body2"> */}
+      <CardContent component="div">
+        <Typography gutterBottom component="h2" variant="h5">
+          {name}
+        </Typography>
+        <Typography sx={{ color: 'text.secondary' }} variant="body2">
           {breed} {age} {zip_code}
-          {/* </Typography> */}
-        </>
-        }
+        </Typography>
       </CardContent>
       <CardActions>
         {isLoading ? <Skeleton animation="wave" variant="rectangular" /> :

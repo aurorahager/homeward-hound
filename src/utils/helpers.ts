@@ -1,3 +1,4 @@
+import { log } from 'console'
 import qs from 'qs'
 
 type Filters = {
@@ -7,7 +8,8 @@ type Filters = {
   sort: string
 }
 
-export const createQueryString = (filter: Filters) => {
-  const params = qs.stringify({ ...filter, size: '24' }, { arrayFormat: 'repeat' })
+export const createQueryString = (filters: Filters) => {
+  console.log('FILTERS', filters)
+  const params = qs.stringify({ ...filters, size: '24' }, { arrayFormat: 'repeat' })
   return params
 }

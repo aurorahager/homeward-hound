@@ -4,6 +4,7 @@ import ThemeRegistry from '@/components/ThemeRegistry'
 import DogsList from '@/components/DogsList'
 import SearchBar from '@/components/SearchBar'
 import PaginationButtons from '@/components/PaginationButtons'
+import Footer from '@/components/Footer'
 import { useRouter } from 'next/navigation'
 import { useDogContext } from '@/context/dogsContext'
 import { useEffect } from 'react'
@@ -27,10 +28,13 @@ export default function Search(): React.ReactElement | null {
       <ThemeRegistry>
         <TexturedBackground>
           <Nav />
+
           <SearchBar />
           <DogsList />
           <PaginationButtons />
+
         </TexturedBackground>
+        <Footer />
       </ThemeRegistry>
     </>
   )

@@ -8,7 +8,7 @@ export const TexturedBackground = styled('div')`
   object-fit: repeat;
   background-blend-mode: multiply;
   min-height: 100vh;
-  width: 100vw;
+  // width: 100vw;
 `;
 
 const shake = keyframes`

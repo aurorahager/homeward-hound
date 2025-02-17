@@ -1,19 +1,24 @@
 import styled from '@emotion/styled'
 import { Stack } from '@mui/material'
 
-export const BarStack = styled(Stack)`
-  justify-content: space-evenly;
+export const BarStack = styled(Stack)(({ bgColor }: { bgColor: string }) => (`
+   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
   position: sticky;
-  margin: 0 auto;
-  padding: 0.7rem 0rem;
-  max-width: 98vw;
-  background-color: ${({ theme }) => theme.palette.primary.light};
-  border-radius: 12px;
-  top: 15vh;
-  // z-index: 1100;
-
+  margin: -5rem auto 0 auto;
+  padding: 2.5rem 0rem;
+  max-width: 95vw;
+  backdrop-filter: blur(10px) saturate(100%);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   background-color: ${bgColor};
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  transition: background-color 0.3s ease;
+  top: 0;
+  z-index: 1100;
+s
   @media (max-width: 787px) {
     flex-direction: column;
     justify-content: space-between;
@@ -22,7 +27,8 @@ export const BarStack = styled(Stack)`
     gap: 0.4rem;
     position: static;
   }
-`
+`))
+
 
 export const FilterOptionsStack = styled(Stack)`
   justify-content: space-evenly;

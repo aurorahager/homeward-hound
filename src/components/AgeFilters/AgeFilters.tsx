@@ -20,14 +20,17 @@ export default function AgeFilters({ errors, register }: Props): React.ReactElem
         type="number"
         error={!!errors.ageMin}
         helperText={errors.ageMin?.message}
-        {...register('ageMin')}
+        {...register('ageMin', { setValueAs: (v) => (v === '' ? null : Number(v)) })
+        }
       />
       <NumberField
         label="Maximum Age"
         type="number"
         error={!!errors.ageMax}
         helperText={errors.ageMax?.message}
-        {...register('ageMax')}
+        {...register('ageMax', { setValueAs: (v) => (v === '' ? null : Number(v)) })
+
+        }
       />
     </>
   )
