@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
 
-import LoginPage from './LoginPage'
 import { APP_TITLE } from '@/utils/constants'
+
+import LoginPage from './LoginPage'
 
 jest.mock('@/components/LoginForm', () => () => <div>Mocked LoginForm</div>)
 

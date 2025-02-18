@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
+
 import useDogSearch from '@/hooks/useDogSearch'
 import useDogsInfo from '@/hooks/useDogsInfo'
 import { useDogContext } from '@/context/dogsContext'
+
 import DogsList from './DogsList'
 
 jest.mock('@/context/dogsContext')

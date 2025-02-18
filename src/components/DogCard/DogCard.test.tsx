@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { FavoriteOutlined } from '@mui/icons-material'
 
 import { useDogContext } from '@/context/dogsContext'
 import { Dog } from '@/types/api'
+
 import DogCard from './DogCard'
 
 jest.mock('@/context/dogsContext')

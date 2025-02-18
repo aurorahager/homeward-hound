@@ -2,11 +2,13 @@ import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
-import LoginForm from './LoginForm'
+
 import { LOGIN_TEXT } from '@/utils/constants'
 import { useDogContext } from '@/context/dogsContext'
 import { setUserLogin } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
+
+import LoginForm from './LoginForm'
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
