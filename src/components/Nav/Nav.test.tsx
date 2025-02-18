@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { useDogContext } from '@/context/dogsContext'
-import { setUserLogout } from '@/services/userService'
+import { setUserLogout } from '@/hooks/useAuth'
 
 import Nav from './Nav'
 
@@ -10,7 +10,7 @@ jest.mock('@/context/dogsContext', () => ({
   useDogContext: jest.fn(),
 }))
 
-jest.mock('@/services/userService', () => ({
+jest.mock('@/hooks/useAuth', () => ({
   setUserLogout: jest.fn(),
 }))
 

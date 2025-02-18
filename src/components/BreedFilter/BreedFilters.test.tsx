@@ -3,13 +3,13 @@ import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
 import { Control, useForm } from 'react-hook-form'
 
-import * as dogsService from '@/services/dogsService'
+import useDogBreeds from '@/hooks/useDogBreeds'
 import { SearchFormValues } from '@/types/ui'
 import { Error as ApiError } from '@/types/api'
 
 import BreedFilter from './BreedFilter'
 
-jest.mock('@/services/dogsService')
+jest.mock('@/hooks/useDogBreeds')
 
 describe('BreedFilter', () => {
   type TestComponentProps = {
@@ -32,10 +32,7 @@ describe('BreedFilter', () => {
   }
 
   function setup(breedsList: string[] | undefined, error?: ApiError) {
-    jest
-      .spyOn(dogsService, 'useDogBreeds')
-      .mockReturnValue({ data: breedsList, error })
-
+    jest.mocked(useDogBreeds).mockReturnValue({ data: breedsList, error })
     render(<Wrapper breedsList={breedsList} error={error} />)
   }
 

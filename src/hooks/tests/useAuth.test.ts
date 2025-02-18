@@ -1,4 +1,4 @@
-import { setUserLogin, setUserLogout } from './userService'
+import { setUserLogin, setUserLogout } from '../useAuth'
 import { api } from '@/utils/api'
 import { LoginParams } from '@/types/api'
 

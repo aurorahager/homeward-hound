@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import * as dogsService from '@/services/dogsService'
+import useDogSearch from '@/hooks/useDogSearch'
+import useDogsInfo from '@/hooks/useDogsInfo'
 import { useDogContext } from '@/context/dogsContext'
 import DogsList from './DogsList'
 
 jest.mock('@/context/dogsContext')
-jest.mock('@/services/dogsService')
+jest.mock('@/hooks/useDogInfo')
+jest.mock('@/hooks/useDogSearch')
 
 describe('DogsList', () => {
   const mockDispatch = jest.fn()
@@ -27,11 +29,11 @@ describe('DogsList', () => {
   })
 
   it('renders list of dogs', () => {
-    ;(dogsService.useDogSearch as jest.Mock).mockReturnValue({
+    ;(useDogSearch as jest.Mock).mockReturnValue({
       data: { resultIds: [mockDog.id], next: null, prev: null },
       error: undefined,
     })
-    ;(dogsService.useDogsInfo as jest.Mock).mockReturnValue({
+    ;(useDogsInfo as jest.Mock).mockReturnValue({
       dogs: [mockDog],
       error: undefined,
     })
@@ -43,11 +45,11 @@ describe('DogsList', () => {
   })
 
   it('renders no dogs when list is empty', () => {
-    ;(dogsService.useDogSearch as jest.Mock).mockReturnValue({
+    ;(useDogSearch as jest.Mock).mockReturnValue({
       data: { resultIds: [], next: null, prev: null },
       error: undefined,
     })
-    ;(dogsService.useDogsInfo as jest.Mock).mockReturnValue({
+    ;(useDogsInfo as jest.Mock).mockReturnValue({
       dogs: [],
       error: undefined,
     })
@@ -59,7 +61,7 @@ describe('DogsList', () => {
   })
 
   it('dispatches SET_PAGES action', () => {
-    ;(dogsService.useDogSearch as jest.Mock).mockReturnValue({
+    ;(useDogSearch as jest.Mock).mockReturnValue({
       data: {
         resultIds: [mockDog.id],
         next: '/dogs/search?page=2',
@@ -67,7 +69,7 @@ describe('DogsList', () => {
       },
       error: undefined,
     })
-    ;(dogsService.useDogsInfo as jest.Mock).mockReturnValue({
+    ;(useDogsInfo as jest.Mock).mockReturnValue({
       dogs: [mockDog],
       error: undefined,
     })
@@ -82,11 +84,11 @@ describe('DogsList', () => {
 
   it('throws an error when infoError is present', () => {
     const errorMessage = 'Failed to fetch dog info'
-    ;(dogsService.useDogSearch as jest.Mock).mockReturnValue({
+    ;(useDogSearch as jest.Mock).mockReturnValue({
       data: { resultIds: [mockDog.id] },
       error: undefined,
     })
-    ;(dogsService.useDogsInfo as jest.Mock).mockReturnValue({
+    ;(useDogsInfo as jest.Mock).mockReturnValue({
       dogs: undefined,
       error: { message: errorMessage },
     })
@@ -96,11 +98,11 @@ describe('DogsList', () => {
 
   it('throws an error when searchError is present', () => {
     const errorMessage = 'Failed to fetch search results'
-    ;(dogsService.useDogSearch as jest.Mock).mockReturnValue({
+    ;(useDogSearch as jest.Mock).mockReturnValue({
       data: undefined,
       error: { message: errorMessage },
     })
-    ;(dogsService.useDogsInfo as jest.Mock).mockReturnValue({
+    ;(useDogsInfo as jest.Mock).mockReturnValue({
       dogs: undefined,
       error: undefined,
     })

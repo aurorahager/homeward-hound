@@ -12,7 +12,7 @@ export default function Error(): React.ReactElement {
     <Container
       sx={{
         ...errorStyles,
-        backgroundStyles,
+        ...backgroundStyles,
       }}
     >
       <Typography color="#3e6f6d" variant="h2">

@@ -1,7 +1,7 @@
 'use client'
 
 import { useDogContext } from '@/context/dogsContext'
-import { getPrefetchPage } from '@/services/dogsService'
+import usePrefetchPage from '@/hooks/usePrefetchPage'
 
 import { PaginationButton, PaginationContainer } from './styles'
 
@@ -23,7 +23,7 @@ export default function PaginationButtons(): React.ReactElement {
     }
 
   const handleButtonHover = (url: string) => (): void => {
-    getPrefetchPage(url).catch((error) => {
+    usePrefetchPage(url).catch((error) => {
       throw new Error(error)
     })
   }

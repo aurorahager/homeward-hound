@@ -12,7 +12,7 @@ import SortSelect from '@/components/SortSelect'
 import { useDogContext } from '@/context/dogsContext'
 import { SearchFormValues } from '@/types/ui'
 import { createQueryString } from '@/utils/helpers'
-import { useScrollEffect } from '@/utils/hooks'
+import useScrollEffect from '@/hooks/useScrollEffect'
 import { searchSchema } from '@/utils/validation'
 
 import { BarStack, FilterOptionsStack } from './styles'
@@ -35,15 +35,9 @@ export default function SearchBar(): React.ReactElement {
     },
   })
 
-  const onSubmit: SubmitHandler<SearchFormValues> = (data): void => {
-    const stringQ = createQueryString(data)
+  const onSubmit: SubmitHandler<SearchFormValues> = (formData): void => {
+    const stringQ = createQueryString(formData)
     dispatch({ type: 'SET_SEARCH_QUERY', payload: stringQ })
-  }
-
-  const handleSearchSubmit = (
-    event: React.FormEvent<HTMLFormElement>,
-  ): void => {
-    handleSubmit(onSubmit)(event)
   }
 
   return (
@@ -52,7 +46,7 @@ export default function SearchBar(): React.ReactElement {
       bgcolor={bgColor}
       divider={<Divider flexItem orientation="vertical" />}
     >
-      <Box component="form" role="form" onSubmit={handleSearchSubmit}>
+      <Box component="form" role="form" onSubmit={handleSubmit(onSubmit)}>
         <FilterOptionsStack useFlexGap gap={2}>
           <BreedFilter control={control} />
           <AgeFilters errors={errors} register={register} />

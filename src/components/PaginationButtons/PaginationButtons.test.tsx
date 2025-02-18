@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { useDogContext } from '@/context/dogsContext'
-import { getPrefetchPage } from '@/services/dogsService'
+import usePrefetchPage from '@/hooks/usePrefetchPage'
 
 import PaginationButtons from './PaginationButtons'
 
@@ -10,8 +10,8 @@ jest.mock('@/context/dogsContext', () => ({
   useDogContext: jest.fn(),
 }))
 
-jest.mock('@/services/dogsService', () => ({
-  getPrefetchPage: jest.fn().mockResolvedValue(undefined),
+jest.mock('@/hooks/usePrefetchPage', () => ({
+  usePrefetchPage: jest.fn().mockResolvedValue(undefined),
 }))
 
 describe('PaginationButtons', () => {
@@ -126,6 +126,6 @@ describe('PaginationButtons', () => {
     const nextButton = screen.getByRole('button', { name: /Next/i })
     await userEvent.hover(nextButton)
 
-    expect(getPrefetchPage).toHaveBeenCalledWith('next-page-url')
+    expect(usePrefetchPage).toHaveBeenCalledWith('next-page-url')
   })
 })

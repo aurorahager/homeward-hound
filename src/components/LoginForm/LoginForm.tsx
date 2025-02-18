@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
 import { useDogContext } from '@/context/dogsContext'
-import { setUserLogin } from '@/services/userService'
+import { setUserLogin } from '@/hooks/useAuth'
 import { LOGIN_TEXT } from '@/utils/constants'
 import { loginSchema } from '@/utils/validation'
 
@@ -46,15 +46,10 @@ export default function LoginForm(): React.ReactElement {
   }
 
   const onSubmit = async (data: FormData): Promise<void> => {
+    console.log('hello', data)
     await setUserLogin(data)
     dispatch({ type: 'LOGIN' })
     router.push('/search')
-  }
-
-  const handleLoginSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    handleSubmit(onSubmit)(event).catch((error) => {
-      throw new Error(error)
-    })
   }
 
   return (
@@ -72,7 +67,7 @@ export default function LoginForm(): React.ReactElement {
           component="form"
           role="form"
           sx={formStyling}
-          onSubmit={handleLoginSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Typography>{LOGIN_TEXT.FORM_TEXT}</Typography>
           <TextField

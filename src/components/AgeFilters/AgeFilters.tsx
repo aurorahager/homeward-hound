@@ -6,7 +6,7 @@ import { SearchFormValues } from '@/types/ui'
 
 import { NumberField } from './styles'
 
-type Props = {
+type AgeFilterProps = {
   register: UseFormRegister<SearchFormValues>
   errors: FieldErrors
 }
@@ -14,7 +14,7 @@ type Props = {
 export default function AgeFilters({
   errors = {},
   register,
-}: Props): React.ReactElement {
+}: AgeFilterProps): React.ReactElement {
   return (
     <>
       <NumberField
@@ -31,7 +31,7 @@ export default function AgeFilters({
         label="Maximum Age"
         type="number"
         {...register('ageMax', {
-          setValueAs: (v) => (v === '' ? 100 : Number(v)), // react-hook-form makes null or '' change to 0
+          setValueAs: (v) => (v === '' ? 100 : Number(v)), // *react-hook-form makes null or '' change to 0
         })}
       />
     </>

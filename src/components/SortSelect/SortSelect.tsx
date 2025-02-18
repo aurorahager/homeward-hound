@@ -8,11 +8,13 @@ import { SORT_OPTIONS } from '@/utils/constants'
 
 import { sortButtonStyling } from './styles'
 
-type Props = {
+type SelectSortProps = {
   register: UseFormRegister<SearchFormValues>
 }
 
-export default function SortSelect({ register }: Props): React.ReactElement {
+export default function SortSelect({
+  register,
+}: SelectSortProps): React.ReactElement {
   return (
     <FormControl sx={sortButtonStyling}>
       <InputLabel id="sort-by">Sort By</InputLabel>

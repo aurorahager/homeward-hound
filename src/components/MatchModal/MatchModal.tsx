@@ -8,7 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Image from 'next/image'
 
 import { useDogContext } from '@/context/dogsContext'
-import { useDogMatch, useDogsInfo } from '@/services/dogsService'
+import useDogMatch from '@/hooks/useDogMatch'
+import useDogsInfo from '@/hooks/useDogsInfo'
 import { IMG_PLACEHOLDER, MODAL_MESSAGES } from '@/utils/constants'
 
 import {
@@ -20,21 +21,27 @@ import {
   subtitleTextStyles,
   subtitleTwoTextStyles,
 } from './styles'
+import { useMemo } from 'react'
 
-type props = {
+type MatchModalProps = {
   isModalOpen: boolean
   setIsModalOpen: (value: boolean) => void
 }
 export default function MatchModal({
   isModalOpen,
   setIsModalOpen,
-}: props): React.ReactElement {
+}: MatchModalProps): React.ReactElement {
   const { state } = useDogContext()
-  const { data, error: matchError } = useDogMatch(
-    isModalOpen && state.favoriteIds.length > 1 ? state.favoriteIds : null,
+
+  const favoriteIds = useMemo(() => state.favoriteIds, [state.favoriteIds])
+
+  const shouldFetchMatch = isModalOpen && state.favoriteIds.length > 1
+  const { data: matchData, error: matchError } = useDogMatch(
+    shouldFetchMatch ? state.favoriteIds : null,
   )
+  const shouldFetchDogInfo = isModalOpen && matchData?.match != null
   const { dogs = [], error: infoError } = useDogsInfo(
-    isModalOpen && data?.match != null ? [data.match] : null,
+    shouldFetchDogInfo ? [matchData.match] : null,
   )
   const { name, breed, zip_code: zipCode, age, img } = dogs[0] ?? {}
 
@@ -42,6 +49,7 @@ export default function MatchModal({
     setIsModalOpen(false)
   }
 
+  // * Error boundary will handle displaying the error page
   if (matchError) {
     throw new Error(matchError.message)
   }
@@ -73,7 +81,7 @@ export default function MatchModal({
       <ModalContentWrapper>
         <ImgWrapper>
           <Image
-            alt={`${name ?? ''} the ${breed ?? ''}`}
+            alt={`${name ?? 'Dog'} the ${breed ?? 'unknown breed'}`}
             height={350}
             src={img ?? IMG_PLACEHOLDER}
             width={350}
@@ -88,14 +96,18 @@ export default function MatchModal({
               sx={subtitleTextStyles}
             >
               {' '}
-              {MODAL_MESSAGES.TEXT(name ?? '', age ?? '', breed ?? '')}
+              {MODAL_MESSAGES.TEXT(
+                name ?? 'Dog',
+                age ?? 'unknown age',
+                breed ?? 'unknown breed',
+              )}
             </Typography>
             <Typography
               color="text.primary"
               component="div"
               sx={subtitleTwoTextStyles}
             >
-              {MODAL_MESSAGES.SUB_TEXT(zipCode ?? '')}
+              {MODAL_MESSAGES.SUB_TEXT(zipCode ?? 'unknown location')}
             </Typography>
           </>
         </ModalTextWrapper>

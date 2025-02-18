@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 import LoginForm from './LoginForm'
 import { LOGIN_TEXT } from '@/utils/constants'
 import { useDogContext } from '@/context/dogsContext'
-import { setUserLogin } from '@/services/userService'
+import { setUserLogin } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 
 jest.mock('next/navigation', () => ({
@@ -14,7 +14,7 @@ jest.mock('next/navigation', () => ({
 jest.mock('@/context/dogsContext', () => ({
   useDogContext: jest.fn(),
 }))
-jest.mock('@/services/userService', () => ({
+jest.mock('@/hooks/useAuth', () => ({
   setUserLogin: jest.fn(),
 }))
 

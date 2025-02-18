@@ -39,7 +39,7 @@ export default function DogCard({ dog }: { dog: Dog }): React.ReactElement {
         {/* Card Image and Fave Button */}
         <MediaWrapper>
           <CardMedia
-            alt={`${name ?? ''} the ${breed ?? ''}`}
+            alt={`${name ?? 'Dog'} the ${breed ?? 'unknown breed'}`}
             component="img"
             image={img ?? IMG_PLACEHOLDER}
             sx={mediaStyles}
@@ -63,11 +63,11 @@ export default function DogCard({ dog }: { dog: Dog }): React.ReactElement {
           <CardContent component="div" sx={cardContentStyles}>
             <Box alignItems="center" display="flex">
               <Typography component="h2" sx={{ fontWeight: 800 }} variant="h5">
-                {name ?? ''}
+                {name ?? 'Dog'}
               </Typography>
               <Brightness1 sx={dotIconStyles} />
               <Typography component="span" variant="h6">
-                {breed ?? ''}
+                {breed ?? 'unknown breed'}
               </Typography>
             </Box>
             <Typography
@@ -75,7 +75,8 @@ export default function DogCard({ dog }: { dog: Dog }): React.ReactElement {
               sx={{ color: 'text.secondary' }}
               variant="subtitle1"
             >
-              Age: {age ?? ''} Location: {zipCode ?? ''}
+              Age: {age ?? 'unknown age'} Location:{' '}
+              {zipCode ?? 'unknown location'}
             </Typography>
           </CardContent>
         </Box>

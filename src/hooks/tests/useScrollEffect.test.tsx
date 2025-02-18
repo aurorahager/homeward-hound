@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react'
-import { useScrollEffect } from './hooks'
+import useScrollEffect from '@/hooks/useScrollEffect'
 
 describe('useScrollEffect', () => {
   beforeEach(() => {

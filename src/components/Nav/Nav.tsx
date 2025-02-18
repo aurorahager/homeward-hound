@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 
 import { useDogContext } from '@/context/dogsContext'
-import { setUserLogout } from '@/services/userService'
+import { setUserLogout } from '@/hooks/useAuth'
 import { petsLogoStyles } from '@/styles/globalStyles'
 
 import { HeaderContainer, LogoText } from './styles'
@@ -13,13 +13,9 @@ import { HeaderContainer, LogoText } from './styles'
 export default function Nav(): React.ReactElement {
   const { dispatch } = useDogContext()
 
-  const handleLogout = (): void => {
-    ;(async (): Promise<void> => {
-      await setUserLogout()
-      dispatch({ type: 'LOGOUT' })
-    })().catch((error) => {
-      throw new Error(error)
-    })
+  const handleLogout = async (): Promise<void> => {
+    await setUserLogout()
+    dispatch({ type: 'LOGOUT' })
   }
 
   return (

@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 
-export const useScrollEffect = (stickyThreshold = 40): string => {
+/**
+ * Hook to adjust opacity and color of search bar on scroll.
+ * @param {string} stickyThreshold - the point at which the search bar becomes sticky
+ * @returns {string} - rgba
+ */
+const useScrollEffect = (stickyThreshold = 40): string => {
   const initialOpacity = 0.05
   const maxOpacity = 0.95
   const transitionSpeed = 200
@@ -32,3 +37,5 @@ export const useScrollEffect = (stickyThreshold = 40): string => {
 
   return bgColor
 }
+
+export default useScrollEffect

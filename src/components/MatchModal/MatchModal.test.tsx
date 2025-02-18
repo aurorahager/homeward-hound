@@ -3,15 +3,22 @@ import userEvent from '@testing-library/user-event'
 
 import MatchModal from '@/components/MatchModal'
 import { useDogContext } from '@/context/dogsContext'
-import { useDogMatch, useDogsInfo } from '@/services/dogsService'
+import useDogMatch from '@/hooks/useDogMatch'
+import useDogsInfo from '@/hooks/useDogsInfo'
 import { IMG_PLACEHOLDER, MODAL_MESSAGES } from '@/utils/constants'
 
 jest.mock('@/context/dogsContext', () => ({
   useDogContext: jest.fn(),
 }))
-jest.mock('@/services/dogsService', () => ({
-  useDogMatch: jest.fn(),
-  useDogsInfo: jest.fn(),
+
+jest.mock('@/hooks/useDogMatch', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
+
+jest.mock('@/hooks/useDogInfo', () => ({
+  __esModule: true,
+  default: jest.fn(),
 }))
 
 describe('MatchModal', () => {

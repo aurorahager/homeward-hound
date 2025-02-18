@@ -75,7 +75,8 @@ exports[`DogCard shows orange favorite icon when dog is favorited 1`] = `
           >
             Age: 
             5
-             Location: 
+             Location:
+             
             12345
           </div>
         </div>
