@@ -1,15 +1,19 @@
-import { log } from 'console'
 import qs from 'qs'
 
-type Filters = {
-  breeds: string[] | []
-  ageMin: number | null
-  ageMax: number | null
-  sort: string
-}
+import { SearchFormValues } from '@/types/ui'
 
-export const createQueryString = (filters: Filters) => {
-  console.log('FILTERS', filters)
+export const createQueryString = (filters: SearchFormValues): string => {
   const params = qs.stringify({ ...filters }, { arrayFormat: 'repeat' })
   return params
+}
+
+export const validateAgeOrder = (
+  min: number | null,
+  max: number | null,
+  isMinField: boolean,
+): boolean => {
+  if (min !== null && max !== null) {
+    return isMinField ? min <= max : max >= min
+  }
+  return true
 }

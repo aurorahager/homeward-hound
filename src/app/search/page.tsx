@@ -1,14 +1,15 @@
 'use client'
-import Nav from '@/components/Nav'
-import ThemeRegistry from '@/components/ThemeRegistry'
-import DogsList from '@/components/DogsList'
-import SearchBar from '@/components/SearchBar'
-import PaginationButtons from '@/components/PaginationButtons'
-import Footer from '@/components/Footer'
+
 import { useRouter } from 'next/navigation'
-import { useDogContext } from '@/context/dogsContext'
 import { useEffect } from 'react'
 
+import DogsList from '@/components/DogsList'
+import Footer from '@/components/Footer'
+import Nav from '@/components/Nav'
+import PaginationButtons from '@/components/PaginationButtons'
+import SearchBar from '@/components/SearchBar'
+import ThemeRegistry from '@/components/ThemeRegistry'
+import { useDogContext } from '@/context/dogsContext'
 import { TexturedBackground } from '@/styles/globalStyles'
 
 export default function Search(): React.ReactElement | null {
@@ -21,21 +22,19 @@ export default function Search(): React.ReactElement | null {
     }
   }, [router, state.isAuthenticated])
 
-  if (!state.isAuthenticated) { return null }
+  if (!state.isAuthenticated) {
+    return null
+  }
 
   return (
-    <>
-      <ThemeRegistry>
-        <TexturedBackground>
-          <Nav />
-
-          <SearchBar />
-          <DogsList />
-          <PaginationButtons />
-
-        </TexturedBackground>
-        <Footer />
-      </ThemeRegistry>
-    </>
+    <ThemeRegistry>
+      <TexturedBackground>
+        <Nav />
+        <SearchBar />
+        <DogsList />
+        <PaginationButtons />
+      </TexturedBackground>
+      <Footer />
+    </ThemeRegistry>
   )
 }

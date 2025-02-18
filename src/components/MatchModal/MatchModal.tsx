@@ -1,66 +1,110 @@
 'use client'
-import { useDogContext } from '@/context/dogsContext'
-import { useDogsInfo, useDogMatch } from '@/services/dogsService'
+
+import { Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogTitle from '@mui/material/DialogTitle'
-import { Typography } from '@mui/material'
 import Image from 'next/image'
 
-import { ImgWrapper, ModalContentWrapper, ModalTextWrapper } from './styles'
+import { useDogContext } from '@/context/dogsContext'
+import { useDogMatch, useDogsInfo } from '@/services/dogsService'
+import { IMG_PLACEHOLDER, MODAL_MESSAGES } from '@/utils/constants'
+
+import {
+  CustomBackdrop,
+  ImgWrapper,
+  ModalContentWrapper,
+  ModalTextWrapper,
+  modalTitleStyles,
+  subtitleTextStyles,
+  subtitleTwoTextStyles,
+} from './styles'
 
 type props = {
-  isOpen: boolean
-  setIsOpen: (value: boolean) => void
+  isModalOpen: boolean
+  setIsModalOpen: (value: boolean) => void
 }
-export default function MatchModal({ isOpen, setIsOpen }: props): React.ReactElement {
+export default function MatchModal({
+  isModalOpen,
+  setIsModalOpen,
+}: props): React.ReactElement {
   const { state } = useDogContext()
-  // TODO fix types
-  const { data, isError: isMatchError } = useDogMatch(isOpen && state.favoriteIds.length > 1 ? state.favoriteIds : null)
-  const { dogs = [], isError: isInfoError } = useDogsInfo(isOpen && data?.match ? [data.match] : null)
-  const { name, breed, zip_code, age, img } = dogs[0] ?? {}
+  const { data, isError: isMatchError } = useDogMatch(
+    isModalOpen && state.favoriteIds.length > 1 ? state.favoriteIds : null,
+  )
+  const { dogs = [], isError: isInfoError } = useDogsInfo(
+    isModalOpen && data?.match != null ? [data.match] : null,
+  )
+  const { name, breed, zip_code: zipCode, age, img } = dogs[0] ?? {}
 
-  const handleCloseModal = () => {
-    setIsOpen(false)
+  const handleCloseModal = (): void => {
+    setIsModalOpen(false)
   }
 
   if (isMatchError || isInfoError) {
     throw Error
   }
 
-
   return (
-    <Dialog open={isOpen} onClose={handleCloseModal} BackdropProps={{
-      style: {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        backdropFilter: 'blur(15px)',
-        WebkitBackdropFilter: 'blur(15px)'
-      },
-    }}>
-      <DialogTitle sx={{ mx: '2rem', marginTop: '.4rem' }} component="div">
-        <Typography variant='h4' component="h1" color='primary' sx={{ fontWeight: 800 }}>It's a Match!</Typography>
+    <Dialog
+      open={isModalOpen}
+      slots={{
+        backdrop: CustomBackdrop,
+      }}
+      onClose={handleCloseModal}
+    >
+      {/* Modal Heading */}
+      <DialogTitle component="div" sx={modalTitleStyles}>
+        <Typography
+          color="primary"
+          component="h1"
+          sx={{ fontWeight: 800 }}
+          variant="h4"
+        >
+          {MODAL_MESSAGES.HEADING}
+        </Typography>
       </DialogTitle>
-
+      {/* Modal main content */}
       <ModalContentWrapper>
         <ImgWrapper>
-          <Image alt={`${name} the ${breed}`} src={img} width={350} height={350} />
+          <Image
+            alt={`${name ?? ''} the ${breed ?? ''}`}
+            height={350}
+            src={img ?? IMG_PLACEHOLDER}
+            width={350}
+          />
         </ImgWrapper>
+        {/* Modal text */}
         <ModalTextWrapper sx={{ px: '1rem' }}>
           <>
-            <Typography component="p" color="text.primary" sx={{ fontSize: '1.2rem', mx: '0.1rem', my: '1rem' }}>
-              {`You and ${name} (a lovable ${age}-year-old ${breed}) are meant to be!`}
+            <Typography
+              color="text.primary"
+              component="div"
+              sx={subtitleTextStyles}
+            >
+              {' '}
+              {MODAL_MESSAGES.TEXT(name ?? '', age ?? '', breed ?? '')}
             </Typography>
-            <Typography component="p" color="text.primary" sx={{
-              fontSize: '1.2rem', mx: '0.1rem', my: '0.5rem'
-            }}>
-              {` Ready to meet your new best friend in ${zip_code}?`}
+            <Typography
+              color="text.primary"
+              component="div"
+              sx={subtitleTwoTextStyles}
+            >
+              {MODAL_MESSAGES.SUB_TEXT(zipCode ?? '')}
             </Typography>
           </>
         </ModalTextWrapper>
       </ModalContentWrapper>
+      {/* Close button */}
       <DialogActions>
-        <Button color="secondary" size='large' variant="contained" onClick={handleCloseModal} sx={{ color: '#f5f5f5' }}>
+        <Button
+          color="secondary"
+          size="large"
+          sx={{ color: '#f5f5f5' }}
+          variant="contained"
+          onClick={handleCloseModal}
+        >
           Close
         </Button>
       </DialogActions>

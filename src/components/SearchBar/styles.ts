@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
 import { Stack } from '@mui/material'
 
-export const BarStack = styled(Stack)(({ bgColor }: { bgColor: string }) => (`
+export const BarStack = styled(Stack)(
+  ({ bgcolor }: { bgcolor: string }) => `
    justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
@@ -12,7 +13,7 @@ export const BarStack = styled(Stack)(({ bgColor }: { bgColor: string }) => (`
   backdrop-filter: blur(10px) saturate(100%);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-   background-color: ${bgColor};
+   background-color: ${bgcolor};
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   transition: background-color 0.3s ease;
@@ -27,8 +28,8 @@ export const BarStack = styled(Stack)(({ bgColor }: { bgColor: string }) => (`
     gap: 0.4rem;
     position: static;
   }
-`))
-
+`,
+)
 
 export const FilterOptionsStack = styled(Stack)`
   justify-content: space-evenly;

@@ -7,8 +7,8 @@ export default function SearchButton(): React.ReactElement {
     <Button
       color="primary"
       sx={searchButtonStyling}
+      type="submit"
       variant="contained"
-      type='submit'
     >
       Search
     </Button>

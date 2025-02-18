@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-
 import Button from '@mui/material/Button'
 
 export const FindMatchButton = styled(Button)`
@@ -10,7 +9,9 @@ export const FindMatchButton = styled(Button)`
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: scale(1.02);

@@ -2,30 +2,32 @@ import { Autocomplete, TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 
 import { useDogBreeds } from '@/services/dogsService'
+import { SearchFormValues } from '@/types/ui'
 
-import {
-  autoCompleteStyling,
-} from './styles'
-// TODO tix types
+import { autoCompleteStyling } from './styles'
+
 type Props = {
-  control: Control<any>;
-};
+  control: Control<SearchFormValues>
+}
 
-export default function BreedFilter({ control }): React.ReactElement {
-  const { data: breedsList, isError, isLoading } = useDogBreeds()
+export default function BreedFilter({ control }: Props): React.ReactElement {
+  const { data: breedsList, isError } = useDogBreeds()
+
+  if (isError) {
+    throw Error
+  }
+
   return (
     <Controller
-      name="breeds"
       control={control}
+      name="breeds"
       render={({ field }) => (
         <Autocomplete
           multiple
-          sx={autoCompleteStyling}
           options={breedsList ?? []}
+          renderInput={(params) => <TextField {...params} label="Breed" />}
+          sx={autoCompleteStyling}
           onChange={(_, value) => field.onChange(value)}
-          renderInput={(params) => (
-            <TextField {...params} label="Breed" />
-          )}
         />
       )}
     />

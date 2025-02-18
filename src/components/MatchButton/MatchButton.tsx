@@ -1,18 +1,17 @@
 import { useState } from 'react'
 
-import { useDogContext } from '@/context/dogsContext'
-
 import MatchModal from '@/components/MatchModal'
+import { useDogContext } from '@/context/dogsContext'
 
 import { FindMatchButton } from './styles'
 
 export default function MatchButton(): React.ReactElement {
   const { state } = useDogContext()
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const handleGenerateMatch = () => {
-    setIsOpen(true)
+  const handleGenerateMatch = (): void => {
+    setIsModalOpen(true)
   }
 
   return (
@@ -25,7 +24,7 @@ export default function MatchButton(): React.ReactElement {
       >
         Find a Match
       </FindMatchButton>
-      <MatchModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <MatchModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   )
 }

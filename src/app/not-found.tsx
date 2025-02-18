@@ -1,31 +1,26 @@
-import { Container, Typography, Button } from "@mui/material"
-import Link from "next/link"
+import { Button, Container, Typography } from '@mui/material'
+import Link from 'next/link'
+
+import { BACK_LOGIN_TEXT, NOT_FOUND_TEXT } from '@/utils/constants'
+
+import { backButtonStyles, backgroundStyles, notFoundStyles } from './styles'
 
 export default function NotFound(): React.ReactElement {
-
   return (
-    <Container sx={{
-      backgroundImage: 'url(/not-found.png)', height: '100vh', width: '100vw', minWidth: '100%', backgroundSize: 'contain',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundColor: '#9dd0b1',
-      display: 'flex',
-      justifyContent: 'flext-start',
-      alignContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      flexDirection: 'column'
-    }}>
-
-      <Typography variant="h2" color="#3e6f6d">Page Not Found</Typography>
-      <Typography variant="h4" color="#3e6f6d">There's nothing to see here. We promise.</Typography>
+    <Container sx={{ ...notFoundStyles, ...backgroundStyles }}>
+      <Typography color="#3e6f6d" variant="h2">
+        {NOT_FOUND_TEXT.HEADING}
+      </Typography>
+      <Typography color="#3e6f6d" variant="h4">
+        {NOT_FOUND_TEXT.SUBHEADING}
+      </Typography>
       <Button
         component={Link}
         href="/login"
+        sx={backButtonStyles}
         variant="contained"
-        sx={{ textDecoration: 'none', backgroundColor: '#f3923b', height: '3rem', width: '12rem' }}
       >
-        Go back to Login
+        {BACK_LOGIN_TEXT}
       </Button>
     </Container>
   )

@@ -2,11 +2,11 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import type { Metadata } from 'next'
 
 import { DogProvider } from '@/context/dogsContext'
-
+import { APP_DESCRIPTION, APP_TITLE } from '@/utils/constants'
 
 export const metadata: Metadata = {
-  title: 'Homeward Hound',
-  description: 'Take home code challenge for Fetch',
+  title: APP_TITLE,
+  description: APP_DESCRIPTION,
 }
 
 export default function RootLayout({
@@ -18,9 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <DogProvider>
-            {children}
-          </DogProvider>
+          <DogProvider>{children}</DogProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

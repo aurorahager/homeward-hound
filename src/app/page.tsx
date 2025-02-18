@@ -1,7 +1,5 @@
-import { redirect } from "next/navigation"
+import { redirect } from 'next/navigation'
 
-export default function Home(): React.ReactElement {
+export default function Home(): void {
   redirect('/login')
-  return <>
-  </>
 }

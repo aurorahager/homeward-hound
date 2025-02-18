@@ -7,9 +7,5 @@ export const NumberField = styled(ValidationInput)`
   max-width: 12rem;
   input {
     appearance: textfield;
-   }
-
-  @media (max-width: 787px) {
-    width: 50%;
   }
 `

@@ -30,6 +30,7 @@ export interface GetResponse {
 }
 
 export interface HookResponse {
-  isLoading: boolean
   isError: Error | undefined
 }
+
+export type ApiResponse = string[] | Dog[] | Match | SearchResponse

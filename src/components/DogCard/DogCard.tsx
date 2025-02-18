@@ -1,74 +1,81 @@
 'use client'
 
-import { FavoriteOutlined, Brightness1 } from '@mui/icons-material'
+import { Brightness1, FavoriteOutlined } from '@mui/icons-material'
 import {
   Box,
-  IconButton,
   CardContent,
   CardMedia,
+  IconButton,
   Typography,
 } from '@mui/material'
 
-import { CardContainer, CardInfoWrapper, MediaWrapper } from './styles'
-
 import { useDogContext } from '@/context/dogsContext'
 import { Dog } from '@/types/api'
+import { IMG_PLACEHOLDER } from '@/utils/constants'
 
+import {
+  CardContainer,
+  CardInfoWrapper,
+  MediaWrapper,
+  cardContentStyles,
+  contentBoxStyles,
+  dotIconStyles,
+  iconButtonStyles,
+  iconStyles,
+  mediaStyles,
+} from './styles'
 
 export default function DogCard({ dog }: { dog: Dog }): React.ReactElement {
   const { state, dispatch } = useDogContext()
-  const { img, name, breed, zip_code, id, age } = dog ?? {}
+  const { img, name, breed, zip_code: zipCode, id, age } = dog ?? {}
 
-  const handleFavorite = () => {
+  const handleFavorite = (): void => {
     dispatch({ type: 'SET_FAVORITE', payload: dog.id })
   }
 
   return (
     <CardContainer>
       <CardInfoWrapper>
-        <MediaWrapper
-        >
+        {/* Card Image and Fave Button */}
+        <MediaWrapper>
           <CardMedia
-            alt={`${dog.name} the ${dog.breed}`}
+            alt={`${name ?? ''} the ${breed ?? ''}`}
             component="img"
-            image={img}
-            sx={{
-              height: '100%',
-              width: '100%',
-              objectFit: 'cover',
-
-
-            }}
+            image={img ?? IMG_PLACEHOLDER}
+            sx={mediaStyles}
           />
-          <IconButton aria-label="Favorite" size="small" onClick={handleFavorite} color="secondary" sx={{
-            position: 'absolute',
-            top: 3,
-            right: 20,
-          }}>
+          <IconButton
+            aria-label="Favorite"
+            color="secondary"
+            size="small"
+            sx={iconButtonStyles}
+            onClick={handleFavorite}
+          >
             {state.favoriteIds.includes(id) ? (
               <FavoriteOutlined sx={{ fontSize: '1.8rem' }} />
             ) : (
-              <FavoriteOutlined sx={{
-                fontSize: '1.8rem',
-                color: 'white'
-              }} />
+              <FavoriteOutlined sx={iconStyles} />
             )}
-
           </IconButton>
         </MediaWrapper>
-        <Box display="flex" sx={{ flexDirection: 'column', justifyContent: 'flex-end', marginBottom: '10%' }}>
-          <CardContent component="div" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <Box display="flex" alignItems="center">
-              <Typography component="h2" variant="h5" sx={{ fontWeight: 800 }}>
-                {name}
+        {/* Dog Details */}
+        <Box display="flex" sx={contentBoxStyles}>
+          <CardContent component="div" sx={cardContentStyles}>
+            <Box alignItems="center" display="flex">
+              <Typography component="h2" sx={{ fontWeight: 800 }} variant="h5">
+                {name ?? ''}
               </Typography>
-              <Brightness1 sx={{ fontSize: '0.5rem', mx: '0.4rem' }} />
-              <Typography variant="h6" component="span">
-                {breed}
+              <Brightness1 sx={dotIconStyles} />
+              <Typography component="span" variant="h6">
+                {breed ?? ''}
               </Typography>
             </Box>
-            <Typography sx={{ color: 'text.secondary' }} variant="subtitle1">
-              Age: {age} Location: {zip_code}
+            <Typography
+              component="div"
+              sx={{ color: 'text.secondary' }}
+              variant="subtitle1"
+            >
+              Age: {age ?? ''} Location: {zipCode ?? ''}
             </Typography>
           </CardContent>
         </Box>

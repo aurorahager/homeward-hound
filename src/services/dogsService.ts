@@ -2,35 +2,27 @@
 
 import useSWR, { preload } from 'swr'
 
-import { api } from '@/utils/api'
-
 import {
   Dog,
-  Match,
   Error,
-  SearchResponse,
-  HookResponse,
   GetResponse,
+  HookResponse,
+  Match,
+  SearchResponse,
 } from '@/types/api'
+import { api } from '@/utils/api'
 
-const fetcher = (url: string, data?: object): Promise<T> =>
-  api.get<T>(url, data);
+const fetcher = <T>(url: string, params?: string[]): Promise<T> =>
+  api.get<T>(url, { params }).then((res): T => res.data)
 
-const fetcherPost = (
-  url: string,
-  data: string[],
-): Promise<T> => api.post<T>(url, data)
-
+const fetcherPost = <T>(url: string, data: string[]): Promise<T> =>
+  api.post<T>(url, data).then((res) => res.data)
 
 export const useDogBreeds = (): GetResponse & HookResponse => {
-  const { data, error, isLoading } = useSWR<string[], Error>(
-    `/dogs/breeds`,
-    fetcher,
-  )
+  const { data, error } = useSWR<string[], Error>(`/dogs/breeds`, fetcher)
 
   return {
     data,
-    isLoading,
     isError: error,
   }
 }
@@ -38,49 +30,51 @@ export const useDogBreeds = (): GetResponse & HookResponse => {
 export const useDogSearch = (
   query?: string,
 ): { data?: SearchResponse } & HookResponse => {
-  const { data, error, isLoading } = useSWR<SearchResponse, Error>(
+  const { data, error } = useSWR<SearchResponse, Error>(
     `/dogs/search?${query}`,
-    fetcher
+    fetcher,
   )
 
   return {
     data,
-    isLoading,
     isError: error,
   }
 }
 
 export const useDogsInfo = (
-  ids: string[],
+  ids: string[] | null,
 ): { dogs?: Dog[] } & HookResponse => {
-  const { data, error, isLoading } = useSWR<Dog[], Error>(
+  const { data, error } = useSWR<Dog[], Error>(
     ['/dogs', ids],
-    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds,),
+    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
   )
 
   return {
     dogs: data,
-    isLoading,
     isError: error,
   }
 }
 
-export const useDogMatch = (dogs: string[]): { data?: Match } & HookResponse => {
-  const { data, error, isLoading } = useSWR<Match, Error>(
+export const useDogMatch = (
+  dogs: string[] | null,
+): { data?: Match } & HookResponse => {
+  const { data, error } = useSWR<Match, Error>(
     ['/dogs/match', dogs],
-    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds), {
-    revalidateOnFocus: false,
-  }
+    ([url, dogIds]: [string, string[]]) => fetcherPost(url, dogIds),
+    {
+      revalidateOnFocus: false,
+    },
   )
 
   return {
     data,
-    isLoading,
     isError: error,
   }
 }
 
-export const usePrefetchPage = (url: string): void => {
-  preload(`/dogs/search?${url}`, fetcher).then((data) => preload('/dogs', (url) => fetcherPost(url, data.resultIds)))
-
+export const getPrefetchPage = async (url: string): Promise<void> => {
+  const data = (await preload(`/dogs/search?${url}`, fetcher)) as SearchResponse
+  await preload('/dogs', (dogsUrl = url) =>
+    fetcherPost(dogsUrl, data.resultIds),
+  )
 }

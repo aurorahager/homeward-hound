@@ -6,9 +6,7 @@ export const searchButtonStyling = css`
   font-size: 1.1rem;
   color: white;
   box-shadow: none;
-  border: 
-
-  @media (max-width: 787px) {
+  border: @media (max-width: 787px) {
     width: 100%;
   }
 `

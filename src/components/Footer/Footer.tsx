@@ -1,44 +1,28 @@
-import { Box, Typography, Link } from '@mui/material'
 import PetsIcon from '@mui/icons-material/Pets'
+import { Link, Typography } from '@mui/material'
+
+import { FOOTER } from '@/utils/constants'
+
+import { FooterContainer, linkStyles, petsIconStyles } from './styles'
 
 export default function Footer(): React.ReactElement {
-
   return (
-    <Box width="100%" display="flex" sx={{
-      justifyContent: 'center',
-      justifyItems: 'center',
-      flexDirection: 'column',
-      alignContent: 'center',
-      alignItems: 'center',
-      gap: 2,
-      padding: '2rem',
-      backgroundColor: '#2e4d4b',
-      color: '#f5f5f1',
-
-    }}>
-      <PetsIcon sx={{
-        color: '#f3923b',
-        fontSize: '2rem'
-      }} />
-      <Typography variant='h6' component="p">
-        Made by Rory for the Fetch take home challenge.
+    <FooterContainer>
+      <PetsIcon sx={petsIconStyles} />
+      <Typography component="p" variant="h6">
+        {FOOTER.MAIN_TEXT}
       </Typography>
-      <Typography variant='h6' component="p">
-        See it on{' '}
+      <Typography component="p" variant="h6">
+        {FOOTER.SUBTEXT}{' '}
         <Link
-          href="https://github.com/aurorahager/homeward-hound"
-          target="_blank"
+          href={FOOTER.GITHUB_LINK}
           rel="noopener noreferrer"
-          sx={{
-            textDecoration: 'none',
-            '&:hover': {
-              textDecoration: 'underline',
-            }
-          }}
+          sx={linkStyles}
+          target="_blank"
         >
           GitHub
         </Link>
       </Typography>
-    </Box>
+    </FooterContainer>
   )
 }

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
+import styled from '@emotion/styled'
+import { Button } from '@mui/material'
 
 export const PaginationContainer = styled('div')`
   display: flex;
@@ -9,7 +9,7 @@ export const PaginationContainer = styled('div')`
   gap: 3rem;
   padding: 3rem;
   margin: 0;
-`;
+`
 
 export const PaginationButton = styled(Button)`
   background: #f3923b;
@@ -24,4 +24,4 @@ export const PaginationButton = styled(Button)`
   &:hover {
     background: #d47c29;
   }
-`;
+`

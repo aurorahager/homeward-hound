@@ -1,23 +1,14 @@
 'use client'
 
-import { createContext, ReactNode, useContext, useReducer } from 'react'
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useMemo,
+  useReducer,
+} from 'react'
 
-interface DogState {
-  favoriteIds: string[]
-  matchId: string | null
-  isAuthenticated: boolean
-  query: string,
-  prevPage: string,
-  nextPage: string,
-}
-
-type DogAction =
-  | { type: 'SET_FAVORITE'; payload: string }
-  | { type: 'SET_MATCH'; payload: string | null }
-  | { type: 'LOGIN' }
-  | { type: 'LOGOUT' }
-  | { type: 'SET_SEARCH_QUERY'; payload: string }
-  | { type: 'SET_PAGES'; payload: { prev: string, next: string } }
+import { Context, DogAction, DogState } from '@/types/ui'
 
 const initialState: DogState = {
   favoriteIds: [],
@@ -40,7 +31,11 @@ const dogReducer = (state: DogState, action: DogAction): DogState => {
     case 'SET_MATCH':
       return { ...state, matchId: action.payload }
     case 'SET_PAGES':
-      return { ...state, prevPage: action.payload.prev, nextPage: action.payload.next }
+      return {
+        ...state,
+        prevPage: action.payload.prev,
+        nextPage: action.payload.next,
+      }
     case 'SET_SEARCH_QUERY':
       return { ...state, query: action.payload }
     case 'LOGIN':
@@ -56,17 +51,14 @@ const DogContext = createContext<
   { state: DogState; dispatch: React.Dispatch<DogAction> } | undefined
 >(undefined)
 
-export function DogProvider({ children }: { children: ReactNode }) {
+export function DogProvider({ children }: { children: ReactNode }): ReactNode {
   const [state, dispatch] = useReducer(dogReducer, initialState)
 
-  return (
-    <DogContext.Provider value={{ state, dispatch }}>
-      {children}
-    </DogContext.Provider>
-  )
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch])
+  return <DogContext.Provider value={value}>{children}</DogContext.Provider>
 }
 
-export const useDogContext = () => {
+export const useDogContext = (): Context => {
   const context = useContext(DogContext)
   if (!context) {
     throw new Error('useDogContext outside of the DogProvider')

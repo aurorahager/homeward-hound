@@ -1,42 +1,57 @@
-import * as yup from 'yup';
+import * as yup from 'yup'
+
+import { SearchFormValues } from '@/types/ui'
+
+import { VALIDATION_MESSAGES } from './constants'
+import { validateAgeOrder } from './helpers'
 
 export const loginSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Name is required')
-    .matches(/^[a-zA-Z-]+$/, 'Name can only contain letters and hyphens'),
+    .required(VALIDATION_MESSAGES.NAME.REQUIRED)
+    .matches(/^[a-zA-Z-]+$/, VALIDATION_MESSAGES.NAME.NO_NUM),
   email: yup
     .string()
-    .required('Email is required')
-    .email('Email is not valid'),
-});
+    .required(VALIDATION_MESSAGES.EMAIL.REQUIRED)
+    .email(VALIDATION_MESSAGES.EMAIL.INVALID),
+})
 
-const validateAgeOrder = (min: number | null, max: number | null, isMinField: boolean) => {
-  if (min !== null && max !== null) {
-    return isMinField ? min <= max : max >= min;
-  }
-  return true;
-};
-
-// TODO fix types
-export const searchSchema = yup.object().shape({
-  ageMin: yup.number()
+export const searchSchema = yup.object<SearchFormValues>().shape({
+  ageMin: yup
+    .number()
     .nullable()
-    .transform((value) => (value === '' || isNaN(value) || value === 0 ? null : Number(value)))
+    .transform((value) =>
+      value === '' || Number.isNaN(value) || value === 0 ? null : Number(value),
+    )
     .default(null)
-    .min(0, 'Age cannot be negative')
-    .test('min-less-than-max', 'Cannot be greater than max age', function (value) {
-      return validateAgeOrder(value, this.parent.ageMax, true);
-    }),
-  ageMax: yup.number()
+    .min(0, VALIDATION_MESSAGES.AGE.NO_NEG)
+    .test(
+      'min-less-than-max',
+      VALIDATION_MESSAGES.AGE.MIN,
+      function minLessThanMax(value) {
+        console.log('min', value)
+        const parent = this.parent as SearchFormValues
+        return validateAgeOrder(value, parent.ageMax, true)
+      },
+    ),
+  ageMax: yup
+    .number()
     .nullable()
-    .transform((value) => (value === '' || isNaN(value) || value === 0 ? null : Number(value)))
+    .transform((value) =>
+      value === '' || Number.isNaN(value) || value === 0 ? null : Number(value),
+    )
     .default(null)
-    .min(0, 'Age cannot be negative')
-    .test('max-greater-than-min', 'Cannot be less than min age', function (value) {
-      return validateAgeOrder(this.parent.ageMin, value, false);
-    }),
+    .min(0, VALIDATION_MESSAGES.AGE.NO_NEG)
+    .test(
+      'max-greater-than-min',
+      VALIDATION_MESSAGES.AGE.MAX,
+      function MaxGreaterThanMin(value) {
+        console.log('max', value)
+        const parent = this.parent as SearchFormValues
+        return validateAgeOrder(parent.ageMin, value, false)
+      },
+    ),
 
   breeds: yup.array().of(yup.string()).default([]),
   sort: yup.string().default('breed:desc'),
-});
+})

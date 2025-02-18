@@ -1,22 +1,24 @@
 'use client'
 
 import Axios, {
-  InternalAxiosRequestConfig,
   AxiosError,
   AxiosResponse,
+  InternalAxiosRequestConfig,
 } from 'axios'
 
-import { API_BASE_URL } from '@/utils/constants'
+import { ApiResponse } from '@/types/api'
+
+import { API_BASE_URL } from './constants'
 
 export const api = Axios.create({
   baseURL: API_BASE_URL,
 })
 
-const requestInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+const requestInterceptor = (
+  config: InternalAxiosRequestConfig,
+): InternalAxiosRequestConfig => {
   const { headers } = config
-  if (headers) {
-    headers.Accept = 'application/json'
-  }
+  headers.Accept = 'application/json'
 
   return {
     ...config,
@@ -29,14 +31,11 @@ const requestErrorInterceptor = (error: AxiosError): Promise<AxiosError> =>
   Promise.reject(error)
 
 const responseInterceptor = (
-  response: AxiosResponse
-): AxiosResponse => response.data
+  response: AxiosResponse<ApiResponse>,
+): AxiosResponse<ApiResponse> => response
 
-const responseErrorInterceptor = (
-  error: AxiosError,
-): Promise<AxiosError> => {
-  return Promise.reject(error)
-}
+const responseErrorInterceptor = (error: AxiosError): Promise<AxiosError> =>
+  Promise.reject(error)
 
 api.interceptors.request.use(requestInterceptor, requestErrorInterceptor)
 api.interceptors.response.use(responseInterceptor, responseErrorInterceptor)

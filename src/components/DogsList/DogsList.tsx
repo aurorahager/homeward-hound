@@ -1,11 +1,11 @@
 'use client'
 
+import { useEffect } from 'react'
 
-import { useDogSearch, useDogsInfo } from '@/services/dogsService'
 import { useDogContext } from '@/context/dogsContext'
+import { useDogSearch, useDogsInfo } from '@/services/dogsService'
 
 import DogCard from '../DogCard'
-import { useEffect } from 'react'
 
 import { ListContainer } from './styles'
 
@@ -15,8 +15,17 @@ export default function DogsList(): React.ReactElement {
   const { dogs, isError: isInfoError } = useDogsInfo(data?.resultIds ?? [])
 
   useEffect(() => {
-    dispatch({ type: 'SET_PAGES', payload: { prev: data?.prev?.slice(13) ?? '', next: data?.next?.slice(13) ?? '' } })
-  }, [data])
+    // Remove begining from query 'dogs/search?' as it is already set during API call
+    const futureQueryStrings = {
+      prev: data?.prev?.slice(13) ?? '',
+      next: data?.next?.slice(13) ?? '',
+    }
+
+    dispatch({
+      type: 'SET_PAGES',
+      payload: futureQueryStrings,
+    })
+  }, [data, dispatch])
 
   if (isInfoError || isSearchError) {
     throw Error
@@ -24,8 +33,7 @@ export default function DogsList(): React.ReactElement {
 
   return (
     <ListContainer>
-      {
-        dogs?.map((dog) => <DogCard key={dog.id} dog={dog} />)}
+      {dogs?.map((dog) => <DogCard key={dog.id} dog={dog} />)}
     </ListContainer>
   )
 }

@@ -1,36 +1,37 @@
 'use client'
 
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
-import {
-  NumberField,
-} from './styles'
+import { SearchFormValues } from '@/types/ui'
 
-// TODO fix types
+import { NumberField } from './styles'
+
 type Props = {
-  register: UseFormRegister<any>;
-  errors: FieldErrors;
-};
+  register: UseFormRegister<SearchFormValues>
+  errors: FieldErrors
+}
 
-export default function AgeFilters({ errors, register }: Props): React.ReactElement {
+export default function AgeFilters({
+  errors,
+  register,
+}: Props): React.ReactElement {
   return (
     <>
       <NumberField
+        error={!!errors.ageMin}
+        helperText={String(errors.ageMin?.message ?? '')}
         label="Minimum Age"
         type="number"
-        error={!!errors.ageMin}
-        helperText={errors.ageMin?.message}
-        {...register('ageMin', { setValueAs: (v) => (v === '' ? null : Number(v)) })
-        }
+        {...register('ageMin')}
       />
       <NumberField
+        error={!!errors.ageMax}
+        helperText={String(errors.ageMax?.message ?? '')}
         label="Maximum Age"
         type="number"
-        error={!!errors.ageMax}
-        helperText={errors.ageMax?.message}
-        {...register('ageMax', { setValueAs: (v) => (v === '' ? null : Number(v)) })
-
-        }
+        {...register('ageMax', {
+          setValueAs: (v) => (v === '' ? 100 : Number(v)), // react-hook-form makes null or '' change to 0
+        })}
       />
     </>
   )

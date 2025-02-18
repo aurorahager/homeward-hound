@@ -1,19 +1,25 @@
 'use client'
 
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form'
 
 import { useDogContext } from '@/context/dogsContext'
 import { setUserLogin } from '@/services/userService'
+import { LOGIN_TEXT } from '@/utils/constants'
 import { loginSchema } from '@/utils/validation'
 
-import { LoginPaper } from './styles';
+import {
+  LoginPaper,
+  boxStyling,
+  formStyling,
+  loginButtonStyling,
+} from './styles'
 
 interface FormData {
-  name: string;
-  email: string;
+  name: string
+  email: string
 }
 
 export default function LoginForm(): React.ReactElement {
@@ -26,16 +32,16 @@ export default function LoginForm(): React.ReactElement {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema),
-  });
+  })
 
-  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {
     if (
       ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', '-'].includes(e.key)
     ) {
-      return;
+      return
     }
     if (/^[0-9]$/.test(e.key)) {
-      e.preventDefault();
+      e.preventDefault()
     }
   }
 
@@ -45,60 +51,48 @@ export default function LoginForm(): React.ReactElement {
     router.push('/search')
   }
 
-  return (
-    <Box sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      width: { xs: '95%', md: '50vw' }
+  const handleLoginSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    handleSubmit(onSubmit)(event).catch((error) => {
+      throw error
+    })
+  }
 
-    }}>
-      <LoginPaper
-      >
-        <Typography variant='h3'>Welcome!</Typography>
-        <Typography variant='h6'>Your perfect canine companion awaits</Typography>
+  return (
+    <Box sx={boxStyling}>
+      <LoginPaper>
+        <Box>
+          <Typography sx={{ my: '1rem' }} variant="h3">
+            {LOGIN_TEXT.HEADING}
+          </Typography>
+          <Typography variant="h6">{LOGIN_TEXT.SUBHEADING}</Typography>
+        </Box>
         <Box
           noValidate
           autoComplete="off"
           component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            gap: 3,
-            padding: { xs: 1, md: 5 },
-            marginY: 5,
-          }}
+          sx={formStyling}
+          onSubmit={handleLoginSubmit}
         >
-          <Typography>
-            Please enter your name and email to login.
-          </Typography>
+          <Typography>{LOGIN_TEXT.FORM_TEXT}</Typography>
           <TextField
             required
             error={!!errors.name}
             helperText={errors.name?.message}
             label="Name"
-            sx={{ backgroundColor: 'transparent' }}
             variant="outlined"
             onKeyDown={handleOnKeyDown}
             {...register('name')}
-
           />
           <TextField
             required
-            label="Email"
-            type="email"
             error={!!errors.email}
             helperText={errors.email?.message}
+            label="Email"
+            type="email"
             variant="outlined"
             {...register('email')}
-
           />
-          <Button
-            sx={{ height: 50, marginTop: 2, color: 'white' }}
-            variant="contained"
-            type="submit"
-          >
+          <Button sx={loginButtonStyling} type="submit" variant="contained">
             Login
           </Button>
         </Box>

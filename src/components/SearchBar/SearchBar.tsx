@@ -1,59 +1,60 @@
 'use client'
 
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Divider } from '@mui/material'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useScrollEffect } from '@/utils/hooks';
-import { createQueryString } from '@/utils/helpers'
-import { searchSchema } from '@/utils/validation'
-import { useDogContext } from '@/context/dogsContext'
-
-import AgeFilters from '@/components/AgeFilters';
-import BreedFilter from '@/components/BreedFilter';
+import AgeFilters from '@/components/AgeFilters'
+import BreedFilter from '@/components/BreedFilter'
 import MatchButton from '@/components/MatchButton'
 import SearchButton from '@/components/SearchButton'
 import SortSelect from '@/components/SortSelect'
+import { useDogContext } from '@/context/dogsContext'
+import { SearchFormValues } from '@/types/ui'
+import { createQueryString } from '@/utils/helpers'
+import { useScrollEffect } from '@/utils/hooks'
+import { searchSchema } from '@/utils/validation'
 
-import {
-  BarStack,
-  FilterOptionsStack,
-} from './styles'
+import { BarStack, FilterOptionsStack } from './styles'
 
-type FormValues = {
-  breeds: string[] | [],
-  ageMin: number | null,
-  ageMax: number | null,
-  sort: string
-}
 export default function SearchBar(): React.ReactElement {
   const { dispatch } = useDogContext()
   const bgColor = useScrollEffect(40)
-  // TODO fix types
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<SearchFormValues>({
     resolver: yupResolver(searchSchema),
     defaultValues: {
       breeds: [],
       ageMin: null,
       ageMax: null,
-      sort: 'breed:desc'
-    }
-  });
+      sort: 'breed:desc',
+    },
+  })
 
-  const onSubmit: SubmitHandler<FormValues> = (data): void => {
-    console.log('hit', data)
+  const onSubmit: SubmitHandler<SearchFormValues> = (data): void => {
     const stringQ = createQueryString(data)
     dispatch({ type: 'SET_SEARCH_QUERY', payload: stringQ })
   }
 
+  const handleSearchSubmit = (
+    event: React.FormEvent<HTMLFormElement>,
+  ): void => {
+    handleSubmit(onSubmit)(event).catch((error) => {
+      throw error
+    })
+  }
+
   return (
-    <BarStack bgcolor={bgColor} useFlexGap divider={<Divider flexItem orientation="vertical" />}>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+    <BarStack
+      useFlexGap
+      bgcolor={bgColor}
+      divider={<Divider flexItem orientation="vertical" />}
+    >
+      <Box component="form" onSubmit={handleSearchSubmit}>
         <FilterOptionsStack useFlexGap gap={2}>
           <BreedFilter control={control} />
           <AgeFilters errors={errors} register={register} />
