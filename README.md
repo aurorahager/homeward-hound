@@ -46,7 +46,7 @@ When a user finds a dog they like, they can favorite the dog. After two or more 
 To run this project locally:
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/project-name.git
+git clone https://github.com/aurorahager/homeward-hound.git
 ```
 2. Navigate into the project directory
 ```
