@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DogCard shows orange favorite icon when dog is favorited 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-z89q2r-MuiPaper-root-MuiCard-root"
+    style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+  >
+    <div
+      class="MuiBox-root css-1hcrhda"
+    >
+      <div
+        class="MuiBox-root css-qmznoe"
+      >
+        <img
+          alt="Buddy the Golden Retriever"
+          class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-ak1pqf-MuiCardMedia-root"
+          src="https://example.com/dog.jpg"
+        />
+        <button
+          aria-label="Favorite"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorSecondary MuiIconButton-sizeSmall css-1dr8kgd-MuiButtonBase-root-MuiIconButton-root"
+          id=":r7:"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-3wu62u-MuiSvgIcon-root"
+            data-testid="FavoriteOutlinedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="MuiBox-root css-1vimsrb"
+      >
+        <div
+          class="MuiCardContent-root css-18jh05-MuiCardContent-root"
+        >
+          <div
+            class="MuiBox-root css-fv3lde"
+          >
+            <h2
+              class="MuiTypography-root MuiTypography-h5 css-efm3u7-MuiTypography-root"
+            >
+              Buddy
+            </h2>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-8gpknc-MuiSvgIcon-root"
+              data-testid="Brightness1Icon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+            </svg>
+            <span
+              class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
+            >
+              Golden Retriever
+            </span>
+          </div>
+          <div
+            class="MuiTypography-root MuiTypography-subtitle1 css-1t4hig0-MuiTypography-root"
+          >
+            Age: 
+            5
+             Location: 
+            12345
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

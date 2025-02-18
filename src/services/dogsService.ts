@@ -23,7 +23,7 @@ export const useDogBreeds = (): GetResponse & HookResponse => {
 
   return {
     data,
-    isError: error,
+    error,
   }
 }
 
@@ -37,7 +37,7 @@ export const useDogSearch = (
 
   return {
     data,
-    isError: error,
+    error,
   }
 }
 
@@ -51,7 +51,7 @@ export const useDogsInfo = (
 
   return {
     dogs: data,
-    isError: error,
+    error,
   }
 }
 
@@ -68,7 +68,7 @@ export const useDogMatch = (
 
   return {
     data,
-    isError: error,
+    error,
   }
 }
 

@@ -30,10 +30,10 @@ export default function MatchModal({
   setIsModalOpen,
 }: props): React.ReactElement {
   const { state } = useDogContext()
-  const { data, isError: isMatchError } = useDogMatch(
+  const { data, error: matchError } = useDogMatch(
     isModalOpen && state.favoriteIds.length > 1 ? state.favoriteIds : null,
   )
-  const { dogs = [], isError: isInfoError } = useDogsInfo(
+  const { dogs = [], error: infoError } = useDogsInfo(
     isModalOpen && data?.match != null ? [data.match] : null,
   )
   const { name, breed, zip_code: zipCode, age, img } = dogs[0] ?? {}
@@ -42,8 +42,12 @@ export default function MatchModal({
     setIsModalOpen(false)
   }
 
-  if (isMatchError || isInfoError) {
-    throw Error
+  if (matchError) {
+    throw new Error(matchError.message)
+  }
+
+  if (infoError) {
+    throw new Error(infoError.message)
   }
 
   return (

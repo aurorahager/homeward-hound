@@ -24,7 +24,7 @@ export default function PaginationButtons(): React.ReactElement {
 
   const handleButtonHover = (url: string) => (): void => {
     getPrefetchPage(url).catch((error) => {
-      throw error
+      throw new Error(error)
     })
   }
 

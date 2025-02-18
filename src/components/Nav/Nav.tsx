@@ -18,7 +18,7 @@ export default function Nav(): React.ReactElement {
       await setUserLogout()
       dispatch({ type: 'LOGOUT' })
     })().catch((error) => {
-      throw error
+      throw new Error(error)
     })
   }
 

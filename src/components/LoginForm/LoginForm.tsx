@@ -53,7 +53,7 @@ export default function LoginForm(): React.ReactElement {
 
   const handleLoginSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     handleSubmit(onSubmit)(event).catch((error) => {
-      throw error
+      throw new Error(error)
     })
   }
 
@@ -70,6 +70,7 @@ export default function LoginForm(): React.ReactElement {
           noValidate
           autoComplete="off"
           component="form"
+          role="form"
           sx={formStyling}
           onSubmit={handleLoginSubmit}
         >

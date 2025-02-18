@@ -11,8 +11,8 @@ import { ListContainer } from './styles'
 
 export default function DogsList(): React.ReactElement {
   const { state, dispatch } = useDogContext()
-  const { data, isError: isSearchError } = useDogSearch(state.query)
-  const { dogs, isError: isInfoError } = useDogsInfo(data?.resultIds ?? [])
+  const { data, error: searchError } = useDogSearch(state.query)
+  const { dogs, error: infoError } = useDogsInfo(data?.resultIds ?? [])
 
   useEffect(() => {
     // Remove begining from query 'dogs/search?' as it is already set during API call
@@ -27,9 +27,13 @@ export default function DogsList(): React.ReactElement {
     })
   }, [data, dispatch])
 
-  if (isInfoError || isSearchError) {
-    throw Error
+  if (infoError ) {
+    throw new Error(infoError.message)
   }
+
+   if (searchError) {
+     throw new Error(searchError.message)
+   }
 
   return (
     <ListContainer>

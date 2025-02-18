@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default function AgeFilters({
-  errors,
+  errors = {},
   register,
 }: Props): React.ReactElement {
   return (
@@ -20,6 +20,7 @@ export default function AgeFilters({
       <NumberField
         error={!!errors.ageMin}
         helperText={String(errors.ageMin?.message ?? '')}
+        id="ageMin"
         label="Minimum Age"
         type="number"
         {...register('ageMin')}

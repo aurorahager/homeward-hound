@@ -31,7 +31,7 @@ export default function SearchBar(): React.ReactElement {
       breeds: [],
       ageMin: null,
       ageMax: null,
-      sort: 'breed:desc',
+      sort: 'breed:asc',
     },
   })
 
@@ -43,9 +43,7 @@ export default function SearchBar(): React.ReactElement {
   const handleSearchSubmit = (
     event: React.FormEvent<HTMLFormElement>,
   ): void => {
-    handleSubmit(onSubmit)(event).catch((error) => {
-      throw error
-    })
+    handleSubmit(onSubmit)(event)
   }
 
   return (
@@ -54,7 +52,7 @@ export default function SearchBar(): React.ReactElement {
       bgcolor={bgColor}
       divider={<Divider flexItem orientation="vertical" />}
     >
-      <Box component="form" onSubmit={handleSearchSubmit}>
+      <Box component="form" role="form" onSubmit={handleSearchSubmit}>
         <FilterOptionsStack useFlexGap gap={2}>
           <BreedFilter control={control} />
           <AgeFilters errors={errors} register={register} />

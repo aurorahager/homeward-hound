@@ -51,7 +51,7 @@ export default function DogCard({ dog }: { dog: Dog }): React.ReactElement {
             sx={iconButtonStyles}
             onClick={handleFavorite}
           >
-            {state.favoriteIds.includes(id) ? (
+            {state.favoriteIds?.includes(id) ? (
               <FavoriteOutlined sx={{ fontSize: '1.8rem' }} />
             ) : (
               <FavoriteOutlined sx={iconStyles} />

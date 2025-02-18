@@ -11,10 +11,10 @@ type Props = {
 }
 
 export default function BreedFilter({ control }: Props): React.ReactElement {
-  const { data: breedsList, isError } = useDogBreeds()
+  const { data: breedsList, error } = useDogBreeds()
 
-  if (isError) {
-    throw Error
+  if (error) {
+    throw new Error(error.message)
   }
 
   return (

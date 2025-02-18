@@ -19,7 +19,7 @@ const initialState: DogState = {
   query: '',
 }
 
-const dogReducer = (state: DogState, action: DogAction): DogState => {
+export const dogReducer = (state: DogState, action: DogAction): DogState => {
   switch (action.type) {
     case 'SET_FAVORITE':
       return {

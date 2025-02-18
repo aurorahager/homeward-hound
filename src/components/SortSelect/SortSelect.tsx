@@ -16,9 +16,9 @@ export default function SortSelect({ register }: Props): React.ReactElement {
   return (
     <FormControl sx={sortButtonStyling}>
       <InputLabel id="sort-by">Sort By</InputLabel>
-      <Select defaultValue="breed:desc" labelId="sort-by" {...register('sort')}>
+      <Select defaultValue="breed:asc" labelId="sort-by" {...register('sort')}>
         {SORT_OPTIONS.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
+          <MenuItem role="option" key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
