@@ -16,7 +16,7 @@ jest.mock('@/hooks/useDogMatch', () => ({
   default: jest.fn(),
 }))
 
-jest.mock('@/hooks/useDogInfo', () => ({
+jest.mock('@/hooks/useDogsInfo', () => ({
   __esModule: true,
   default: jest.fn(),
 }))

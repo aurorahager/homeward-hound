@@ -11,7 +11,8 @@ jest.mock('@/context/dogsContext', () => ({
 }))
 
 jest.mock('@/hooks/usePrefetchPage', () => ({
-  usePrefetchPage: jest.fn().mockResolvedValue(undefined),
+  __esModule: true,
+  default: jest.fn().mockResolvedValue(undefined),
 }))
 
 describe('PaginationButtons', () => {
@@ -117,7 +118,7 @@ describe('PaginationButtons', () => {
     })
   })
 
-  it('calls getPrefetchPage on Next button hover', async () => {
+  it('calls usePrefetchPage on Next button hover', async () => {
     ;(useDogContext as jest.Mock).mockReturnValue({
       state: { nextPage: 'next-page-url' },
       dispatch: mockDispatch,

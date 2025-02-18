@@ -6,7 +6,7 @@ import { useDogContext } from '@/context/dogsContext'
 import DogsList from './DogsList'
 
 jest.mock('@/context/dogsContext')
-jest.mock('@/hooks/useDogInfo')
+jest.mock('@/hooks/useDogsInfo')
 jest.mock('@/hooks/useDogSearch')
 
 describe('DogsList', () => {
